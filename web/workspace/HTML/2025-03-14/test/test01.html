@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>2025-03-14 test1</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+
+<body>
+    <div>
+        <fieldset>
+            <legend>고객정보</legend>
+            <label for="고객명">고객명 : </label>
+            <input type="text" id="고객명" name="고객명" size="10" placeholder="이름 입력" required>
+            <br>
+            <label for="전화번호">전화번호 : </label>
+            <input type="tel" id="전화번호" name="전화번호" size="20" value="010-1234-5678" required>
+            <br>
+            <label for="이메일">이메일 : </label>
+            <input type="email" id="이메일" name="이메일" size="20" value="" required>
+        </fieldset>
+
+    </div>
+    <br>
+    <div>
+        <fieldset>
+            <legend>주문정보</legend>
+            <label for="피자종류">피자종류 : </label>
+            <select name="피자종류" id="피자종류">
+                <option value="페퍼로니">페퍼로니</option>
+                <option value="치즈">치즈</option>
+                <option value="콤비네이션">콤비네이션</option>
+                <option value="포테이토">포테이토</option>
+            </select>
+            <br>
+            <label for="피자사이즈">피자사이즈 </label>
+            <br>
+            <label for="small">
+                <input type="radio" name="피자사이즈" value="small" id="small">small
+            </label>
+            <br>
+            <label for="medium">  
+            <input type="radio" name="피자사이즈" value="medium" id="medium">medium
+            </label>
+            <br>
+            <label for="large">
+            <input type="radio" name="피자사이즈" value="large" id="large">large
+            </label>
+            <br>
+            <label for="피자수량">피자수량 : </label>
+            <input type="number" id="피자수량" name="피자수량" min="1" max="10" step="1">
+            <br>
+            <label for="주문날짜">주문날짜 : </label>
+            <input type="date" id="주문날짜" name="주문날짜">
+            <br>
+            <label for="요청사항">요청사항 : </label>
+            <textarea name="요청사항" id="요청사항" cols="30" rows="10"></textarea>
+        </fieldset>
+    </div>
+    <div>
+        <fieldset>
+            <legend>토핑 선택</legend>
+            <input type="checkbox" name="토핑" value="베이컨">베이컨
+            <br>
+            <input type="checkbox" name="토핑" value="치즈">치즈
+            <br>
+            <input type="checkbox" name="토핑" value="양파">양파
+            <br>
+            <input type="checkbox" name="토핑" value="버섯">버섯
+        </fieldset>
+    </div>
+    <br>
+
+    <div>
+        <label for="time">희망 배송시간 : </label>
+        <input type="time" id="time" name="time">
+    </div>
+
+    <br>
+
+    <div>
+        <button type="submit">주문하기</button>
+    </div>
+
+
+</body>
+
+</html>

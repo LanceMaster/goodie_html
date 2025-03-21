@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+</head>
+
+<body>
+    <p>select 태그를 선택하여 value의 값으로 이미지 변경하기</p>
+    <form name="f">
+        <table>
+            <tr>
+                <td>
+                    <select name= "s"  onchange="drawimg()">
+                        <option value="/web/resource/strawberry.gif">딸기</option>
+                        <option value="/web/resource/banana.jpg">바나나</option>
+                        <option value="/web/resource/apple.gif">사과</option>
+                    </select>
+
+                </td>
+                <td>
+                    <img src="/web/resource/strawberry.gif" name="img3" width="100" height="120">
+                </td>
+            </tr>
+
+        </table>
+
+
+    </form>
+
+    <script>
+        function drawimg() {
+
+            const select_value = document.querySelector("select[name=s]").value;
+            // window.alert(select_value);
+            document.querySelector("img[name=img3]").src = select_value;
+            //querySelect에서 name태그를 활용하는것은
+            //html태그[name=namevalue]로 사용한 html태그랑 대괄호 name = namevalue로 사용한 html태그랑 같은것을 찾아서 사용한다.
+            
+        }
+    </script>
+</body>
+
+</html>

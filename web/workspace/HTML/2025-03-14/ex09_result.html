@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Form Result</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        // 페이지가 로드되었을 때, URL에서 파라미터를 읽어서 표시하는 함수
+        window.onload = function() {
+            const params = new URLSearchParams(window.location.search); // URL 파라미터를 읽음
+            document.getElementById("resultName").textContent = params.get("name");
+            document.getElementById("resultEmail").textContent = params.get("email");
+            document.getElementById("resultPassword").textContent = params.get("password");
+            document.getElementById("resultMolu").textContent = params.get("molu");
+            document.getElementById("resultChk1").textContent = params.get("chk1");
+            document.getElementById("resultGender").textContent = params.get("gender");
+            document.getElementById("resultTextarea").textContent = params.get("textarea");
+        }
+    </script>
+</head>
+
+<body>
+    <h1>폼 데이터 결과</h1>
+    <p><strong>이름:</strong> <span id="resultName"></span></p>
+    <p><strong>이메일:</strong> <span id="resultEmail"></span></p>
+    <p><strong>비밀번호:</strong> <span id="resultPassword"></span></p>
+    <p><strong>몰름:</strong> <span id="resultMolu"></span></p>
+    <p><strong>체크박스:</strong> <span id="resultChk1"></span></p>
+    <p><strong>성별:</strong> <span id="resultGender"></span></p>
+    <p><strong>텍스트 에어리어:</strong> <span id="resultTextarea"></span></p>
+</body>
+
+</html>

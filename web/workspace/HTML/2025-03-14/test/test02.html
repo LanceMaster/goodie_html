@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>test02.html</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <div>
+
+        
+        <fieldset>
+            <legend>납품자 정보</legend>
+            
+           <ol>
+            <li>
+             <label for="납품자명">납품자명 : 
+                 <input type="text" id="납품자명" name="납품자명" size="10" placeholder="name" required>
+             </label>
+            </li>
+            <br>
+            <li>
+                <label>email : </label>
+                <input type="email" id="email" name="email" placeholder="answs@naver.com" size="20" value="" required>
+            </li>
+            <br>
+            <li>
+                <label>홈페이지 : </label>
+                <input type="tel" id="홈페이지" name="홈페이지" placeholder="http://" size="50" value="" required>
+           </ol>
+        </fieldset>
+        
+    </div>
+    
+    <br>
+
+    <div>
+        <fieldset>
+            <legend>납품정보</legend>
+            
+            <li>
+                <label for="상품명">상품명 : </label>
+                <input type="text" id="상품명" name="상품명" size="20" required>
+            </li>
+            <br>
+            <li>
+                <label for="수량">수량 : </label>
+                <input type="number" id="수량" name="수량" min="100" max="300" step="1" placeholder="최소 수량 100" style="width: 150px;" required>
+            </li>
+            <br>
+            <li>
+                <label for="납품등급">납풍등급:</label>
+                <input type="range" id="납품등급" name="납품등급" min="1" max="10" step="1" required>
+            </li>
+            <br>
+            <li>
+                <label for="기타사항">기타사항 : </label>
+                <textarea id="기타사항" name="기타사항"  placeholder="기타사항을 입력하세요." required></textarea>
+            </li>
+        </fieldset>
+    </div>
+    <br>
+
+    <button type="submit">send Message</button>
+
+    
+</body>
+</li>
+</html>

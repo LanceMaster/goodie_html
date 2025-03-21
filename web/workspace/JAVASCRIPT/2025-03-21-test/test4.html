@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel='stylesheet' type='text/css' media='screen' href='/web/workspace/JAVASCRIPT/2025-03-21-test/calendar.css'>
+    <meta charset="UTF-8" />
+    <title>title</title>
+</head>
+
+<body>
+    <h1>Test4.html</h1>
+
+    <hr>
+
+    <select id="year">
+        <option value="2021">2021</option>
+        <option value="2022">2022</option>
+        <option value="2023">2023</option>
+        <option value="2024">2024</option>
+        <option value="2025">2025</option>
+    </select>
+
+
+    <button onclick="calendar()">달력보기</button>
+
+    <div id="selectedDate" style="text-align: center; font-size: 1.5rem; margin: 20px 0; font-weight: bold;"></div>
+    <div id="cal"></div>
+
+    <script>
+        function calendar() {
+            const year = document.querySelector("#year").value;
+            const cal = document.querySelector("#cal");
+            const selectedDate = document.querySelector("#selectedDate");
+
+            // 선택한 년도 표시
+            selectedDate.textContent = `${year}년`;
+
+            // 초기화
+            cal.innerHTML = '<div class="calendar-row"></div>';
+            const calendarRow = cal.querySelector(".calendar-row");
+
+            // 1월부터 12월까지 반복
+            for (let month = 1; month <= 12; month++) {
+                // 해당월의 1을 빼서 갖고와야함
+                const date = new Date(year, month - 1, 1);
+                
+                const lastDate = new Date(year, month, 0);
+                // lastdate는 해당월의 마지막날짜를 구하기 위함
+
+                //lastdate.getdate로 해당 마지막월의 마지막 날짜
+                const lastDay = lastDate.getDate();
+                console.log("lastdate" + lastDate)
+                console.log("lastday" + lastDay);
+
+                // 월 제목 및 달력 생성
+                let table = `<div class="calendar-month"><h2>${month}월</h2>`;
+                table += '<table>';
+                table += '<tr>';
+                table += '<th>일</th>';
+                table += '<th>월</th>';
+                table += '<th>화</th>';
+                table += '<th>수</th>';
+                table += '<th>목</th>';
+                table += '<th>금</th>';
+                table += '<th>토</th>';
+                table += '</tr>';
+
+                let count = 0;
+                table += '<tr>';
+
+                for (let i = 0; i < date.getDay(); i++) {
+                    table += '<td></td>';
+                    count++;
+                }
+                
+
+
+                for (let i = 1; i <= lastDay; i++) {
+                    table += `<td>${i}</td>`;
+                    count++;
+                    //count가 7일때 다음행으로 넘겨가기
+                    if (count % 7 === 0) {
+                        table += '</tr><tr>';
+                    }
+                }
+
+                for (let i = 0; i < 7 - count % 7; i++) {
+                    table += '<td></td>';
+                }
+                table += '</tr>';
+                table += '</table></div>';
+
+                // 각 월의 달력을 추가
+                calendarRow.innerHTML += table;
+            }
+        }
+    </script>
+</body>
+
+</html>

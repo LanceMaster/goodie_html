@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+</head>
+
+<style>
+      body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* 제목 스타일 */
+h1,
+h2 {
+    text-align: center;
+    color: #444;
+}
+
+/* 셀렉트 박스와 버튼 스타일 */
+select,
+button {
+    padding: 10px;
+    margin: 10px 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* 달력 컨테이너 스타일 */
+#cal {
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* 달력 테이블 스타일 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+th,
+td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f4f4f4;
+    color: #555;
+}
+
+td {
+    background-color: #fff;
+}
+
+/* 주말 색상 강조 */
+td:nth-child(1) {
+    color: red;
+    /* 일요일 */
+}
+
+td:nth-child(7) {
+    color: blue;
+    /* 토요일 */
+}
+
+/* 빈 칸 스타일 */
+td:empty {
+    background-color: #f9f9f9;
+}
+
+</style>
+
+
+<body>
+    <h1>Test3.html</h1>
+    <hr>
+    <!-- <h2>년도와 월을 옵션으로 선택하여 달력보기 버튼클릭시 해당 년월의 달력 나오게 하기 </h2> -->
+
+    <select id="year">
+        <option value="2021">2021</option>
+        <option value="2022">2022</option>
+        <option value="2023">2023</option>
+        <option value="2024">2024</option>
+        <option value="2025">2025</option>
+    </select>
+    <select id="month">
+        <option value="1">1월</option>
+        <option value="2">2월</option>
+        <option value="3">3월</option>
+        <option value="4">4월</option>
+        <option value="5">5월</option>
+        <option value="6">6월</option>
+        <option value="7">7월</option>
+        <option value="8">8월</option>
+        <option value="9">9월</option>
+        <option value="10">10월</option>
+        <option value="11">11월</option>
+        <option value="12">12월</option>
+    </select>
+    <button onclick="calendar()">달력보기</button>
+
+    <div id="selectedDate" style="text-align: center; font-size: 1.5rem; margin: 20px 0; font-weight: bold;"></div>
+    <div id="cal"></div>
+
+
+    <script>
+        function calendar() {
+
+
+            // cal.innerHTML = document.querySelector("#year").value;
+
+
+            const year = document.querySelector("#year").value;
+            const month = document.querySelector("#month").value;
+            const cal = document.querySelector("#cal");
+
+            const date = new Date(year, month - 1, 1);
+            const lastDate = new Date(year, month, 0);
+            const lastDay = lastDate.getDate();
+
+
+
+
+            // window.alert(lastDay);
+            // window.alert(date.getDay());
+
+
+            selectedDate.textContent = `${year}년 ${month}월`;
+
+            let table = '<table border="1">';
+
+
+
+            table += '<tr>';
+            table += '<th>일</th>';
+            table += '<th>월</th>';
+            table += '<th>화</th>';
+            table += '<th>수</th>';
+            table += '<th>목</th>';
+            table += '<th>금</th>';
+            table += '<th>토</th>';
+            table += '</tr>';
+
+            let count = 0;
+            table += '<tr>';
+            for (let i = 0; i < date.getDay(); i++) {
+                table += '<td></td>';
+                count++;
+            }
+
+            //1일부터 마지막날까지
+            for (let i = 1; i <= lastDay; i++) {
+                table += '<td>' + i + '</td>';
+                count++;
+                if (count % 7 == 0) {
+                    table += '</tr>';
+                    table += '<tr>';
+                }
+            }
+
+
+            // window.alert(count);
+            //마지막 날짜 이후 빈칸
+            for (let i = 0; i < 7 - count % 7; i++) {
+                table += '<td></td>';
+            }
+            table += '</tr>';
+            table += '</table>';
+
+            cal.innerHTML = table;
+        }
+    </script>
+
+
+</body>
+
+</html>

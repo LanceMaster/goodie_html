@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>ex11_class.t.html</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+<style>
+    /*
+    클래스에 css를 적용할 때는 .을 사용한다.
+    아이디에 css를 적용할 때는 #을 사용한다.
+    */
+    .cursive-text {
+        font-family: 'Dancing Script', cursive;
+        color: blue;
+    }
+    .red_text{
+        color: olivedrab;
+    }
+    .big_text{
+        font-size: 30px;
+    }
+</style>
+
+<body>
+    <!--
+    class 속성은 여러개가 가능하지만 id는 하나만 가능하다.
+    class 속성
+        1. 전역속성 : 모든 태그에 설정이 가능함.
+        2. 같은 스타일을 가진 경우 같은 class 속성을 설정 가능
+        3. 하나의 태그는 여러 class 속성을 가질 수 있음.공백으로 구분
+        4. style에서 class 속성을 사용할 때는 .을 사용한다.
+    -->
+    <p class="cursive-text" id = "hello">Hello World</p>
+    <p class="cursive-text red_text big_text">Hello World</p>
+    <p class="red_text">Oh Nice to Meet YOU</p>
+
+
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+
+/* 주말 색상 강조 */
+
+td:nth-child(1) {
+    color: red;
+    /* 일요일 */
+}
+
+td:nth-child(7) {
+    color: blue;
+    /* 토요일 */
+}
+
+
+
+.calendar-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.calendar-month {
+    flex: 1 1 calc(25% - 20px); /* 4개의 월이 한 줄에 배치되도록 설정 */
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+}
+
+.calendar-month h2 {
+    margin: 10px 0;
+    font-size: 1.2rem;
+}
+
+.calendar-month table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.calendar-month th, .calendar-month td {
+    padding: 5px;
+    border: 1px solid #ddd;
+}
+
+.calendar-month th {
+    background-color: #f4f4f4;
+}
+
+.calendar-month td:empty {
+    background-color: #f9f9f9;
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<!-- css의 internal방식으로 불린다. 
+    css의 internal방식은 html문서 내부에 css코드를 작성하는 방식이다.
+    이 방식은 html문서 내부에 css코드를 작성하기 때문에 css코드를 다른 html문서에서 사용할 수 없다
+    -- 지정방식
+     inline : Html태그 내부에 직접 작성하는 방식 우선순위가 가장높다
+     - !important : 우선순위를 가장 높게 설정하는 방법 가급적 사용하지 않는 것이 좋다
+     internal : Html문서 내부에 작성하는 방식
+     external : 외부 css파일을 만들어서 css코드를 작성하는 방식
+        external 작성방법 
+        1. css파일을 생성한다.
+        2. css파일에 css코드를 작성한다.
+        3. html문서에서 css파일을 연결한다.
+        선택자 {
+            속성: 값; /* 주석 */
+        }
+
+    우선 순위 : inline > internal > external
+-->
+
+<body>
+
+    <head>
+        <title>
+            External CSS
+        </title>
+    </head>
+    <h1>Hello World!</h1>
+    <p id ="introduce" style="color: burlywood;">반갑습니다 김준희 입니다.</p>
+    <p id = "external">External CSS TEST</p>
+</body>
+
+</html>

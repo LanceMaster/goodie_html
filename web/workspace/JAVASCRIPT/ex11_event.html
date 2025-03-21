@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+</head>
+<style>
+    .area {
+        background-color: antiquewhite;
+        border: 1px solid black;
+        width: 500px;
+        height: 100px;
+    }
+</style>
+
+<h1>이벤트(event)</h1>
+<h3>기본 이벤트</h3>
+<p>
+    특정 요소객체의 이벤트 속성에 접근 후 이벤트 핸들러 연결 방식
+</p>
+<button id="myButton">Click Me</button>
+<button id="myButton2">Click Me!</button>
+<button id="myButton3">Click Me!!!</button>
+<button id="myButton4">Click Me!!!!</button>
+<br>
+<br>
+<div class="area"></div>
+
+
+
+<script>
+    let number = 3;
+    let number2 = 5;
+    document.getElementById("myButton").addEventListener("click", function () {
+        alert("Button was clicked!");
+    });
+
+    document.getElementById("myButton2").addEventListener("click", function (number, number2) {
+        let sum = number + number2;
+        alert("The sum is " + sum);
+    });
+
+    document.getElementById("myButton3").onclick = function () {
+        let area = document.querySelector(".area");
+        area.innerHTML += "버튼이 클릭되어 이벤트 발생함<br>";
+    };
+
+    document.getElementById("myButton4").addEventListener("click", function () {
+        let area = document.querySelector(".area");
+        area.innerHTML += "버튼이 클릭되어 이벤트 제거함<br>";
+        document.querySelector("#myButton3").onclick = null; // onclick 이벤트 제거
+    });
+</script>
+
+<br>
+
+<h3>addEventListener 방식으로 좀 해봄</h3>
+
+
+<style>
+    .area2 {
+        background-color: burlywood;
+        border: 1px solid black;
+        width: 500px;
+        height: 100px;
+        padding: 10px;
+        margin-top: 10px;
+    }
+</style>
+<button id="myButton5">Click Me</button>
+
+<div class="area2"></div>
+
+<script>
+
+    const btn3 = document.querySelector("#myButton5");
+    btn3.addEventListener("click", function () {
+        alert("Button was clicked!");
+    });
+
+    btn3.addEventListener("mouseenter", function () {
+        btn3.style.backgroundColor = "red";
+    });
+
+    btn3.addEventListener("mouseleave", function () {
+        btn3.style.backgroundColor = null;
+    });
+
+
+</script>
+
+<br>
+<h3>target</h3>
+
+<button id="target-btn">타겟버튼</button>
+<button id="target-btn2">타겟버튼2</button>
+
+<div class="area2"></div>
+
+<script>
+
+    document.querySelector("#target-btn").addEventListener("click", function (e) {
+        //e : 이벤트 객체. 이벤트 정보를 저장하고 있는 객체
+
+        console.log("e:" , e);
+        console.log("e.target" + e.target); //이벤트 발생한 요소객체
+        console.log("e.currentTarget"+ e.currentTarget);
+        e.target.innerHTML = "클릭됨";
+        console.log(window.event.target);
+        console.log(e.target);
+        e.target.style.backgroundColor = "red";
+        this.style.color = "blue"; //font-color
+
+    });
+
+    document.querySelector("#target-btn2").addEventListener("mouseover", function (e) {
+        console.log("e:" , e);
+        console.log("this" , this);
+        console.log("this.style",this.style);
+    });
+</script>
+
+<hr style="border: 1px solid black;">
+
+<h4>button 태그의 내용으로 클릭한 경우 배경을 변경함수를 구현해보기 </h4>
+<button onclick="changeBackGround()">red</button>
+<button onclick="changeBackGround(event)">red</button>
+<button onclick="changeBackGround()">blue</button> 
+<button onclick="changeBackGround()">green</button>
+<button onclick="changeBackGround()">pink</button> 
+
+
+
+</body>
+
+<script>
+    function changeBackGround(e) {
+
+        // let color = event.target.innerHTML;
+        let color2 = e.target.innerHTML
+        // document.body.style.backgroundColor = color;
+        // event.target.style.backgroundColor = color;
+        e.target.style.backgroundColor = color2;
+        console.log(e.target);
+       
+        // 이 함수는 이벤트 객체 `e`를 매개변수로 받아옵니다. 
+        // 이 객체는 함수를 트리거한 이벤트를 나타냅니다. 
+        // `event.target` 속성을 사용하여 클릭되거나 상호작용된 요소에 접근할 수 있습니다. 
+        // 이 속성을 사용하여 함수는 대상 요소의 배경을 동적으로 변경합니다.
+       
+    }
+</script>
+
+</html>

@@ -1,0 +1,33 @@
+pre {
+    line-height: 32px;                      /* 행 높이 : 세로 가운데 정렬에서 주로 활용 */
+    letter-spacing: -1px;                   /* 글자 간격 */
+    color: rgb(0, 0, 0);
+    /* RGB : 16진수표기법 */
+    color: rgb(255, 255, 255);
+    color: #000000;
+    color: #FFFFFF;
+    color: rgba(0, 0, 0, 0.5);            /* alpha(투명도) : 0(투명) ~ 1(불투명) */
+}
+h1 {
+/*
+브라우저 별로 글자의 외각선 효과 처리 표준화 추진중
+벤더 프리픽스 : 브라우저 제작사가 자체적으로 제공하는 기능을 사용할 때 사용
+-webkit- : 크롬, 사파리
+-moz- : 파이어폭스
+-o- : 오페라
+*/
+
+    -webkit-text-stroke-color: crimson;
+    -webkit-text-stroke-width: 1px;
+}
+
+/*
+a태그는 text-align : center를 해도 가운데 정렬이 되지 않는다.
+display : block; 을 추가해야 한다.
+text-align : center는 블럭요소는 가능하다. 
+인라인태그는 정렬이 안됨
+*/
+a{
+    text-align: center;
+    display: block;
+}

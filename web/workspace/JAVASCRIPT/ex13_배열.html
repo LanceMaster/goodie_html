@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+</head>
+
+<body>
+    <style>
+        .area {
+            border: 1px solid black;
+            width: 500px;
+            height: 200px;
+        }
+    </style>
+
+    <h1>배열</h1>
+
+    <p>
+        자바스크립트에서는 변수 선언시 별도의 자료형을 지정하지 않으므로
+        어떤 자료형이든 하나의 배열에 저장하고할수 있음<br>
+        크기의 제한이 없음<br>
+        자바의 ArrayList와 유사함><br>
+        배열의 선언은 []를 사용함<br>
+    </p>
+
+    <button onclick="arrayTest1();">배열 테스트1</button>
+
+    <br>
+    <hr style="width: 100%; border: 1px solid black;">
+    Test Array : [10, 20, 30, 40, 50,[1,2,3,4,5]];
+    <hr style="width: 100%; border: 1px solid black;">
+
+
+    <div id="result"></div>
+
+    <script>
+        function arrayTest1() {
+            const arr = [10, 20, 30, 40, 50, [1, 2, 3, 4, 5]]; //배열의 선언. 초기화
+            const result = document.getElementById("result");
+            result.innerHTML = "배열의 길이 : " + arr.length + "<br>";
+            result.innerHTML += "배열의 요소 : " + arr + "<br>";
+            result.innerHTML += "배열의 첫번째 요소 : " + arr[0] + "<br>";
+            result.innerHTML += "배열의 마지막 요소 : " + arr[arr.length - 1] + "<br>";
+            result.innerHTML += "배열의 6번째 요소 : " + arr[5][1] + "<br>";
+        }
+    </script>
+
+    <h3>배열에 값 저장하기 </h3>
+    <button onclick="arrayTest2();">배열 테스트2</button>
+    <div id="result2"></div>
+    <script>
+        function arrayTest2() {
+            const arr1 = new Array(); //배열의 선언
+            const arr2 = new Array(3); //배열의 선언   
+            const arr3 = [];
+
+            console.log(arr1.length, arr2.length, arr3.length);
+            console.log(arr2)
+            const result2 = document.getElementById("result2");
+            result2.innerHTML = "arr1의 길이 : " + arr1.length + "<br>";
+            result2.innerHTML += "arr2의 길이 : " + arr2.length + "<br>";
+            result2.innerHTML += "arr3의 길이 : " + arr3.length + "<br>";
+            //arr3에 값 저장
+            arr3[0] = "바나나";
+            arr3[1] = "사과";
+            arr3[2] = "딸기";
+            arr3[9] = "키위";
+            // result2.innerHTML += "arr3의 요소 : " + arr3 + "<br>";
+            console.log(arr3, arr3.length);
+
+
+            //arr3의 요소를 출력 기존 for문 사용
+            // 1.undified가 출력됨
+            // 2.배열 요소중 일부간 조회 가능 
+            result2.innerHTML += "<h5>기존 for의 사용</h5><br>"
+            for (let i = 0; i < arr3.length; i++) {
+                result2.innerHTML += arr3[i] + "<br>";
+            }
+
+
+            //in을 사용해서 출력
+            // 1.undified가 출력안됨
+            // 2.모든요소를 조회함
+            result2.innerHTML += "<h5>in을 사용한 출력</h5><br>"
+            for (let i in arr3) {
+                result2.innerHTML += i + " : " + arr3[i] + "<br>";
+            }
+
+            result2.innerHTML += "arr3의 길이 : " + arr3.length + "<br>";
+        }
+
+    </script>
+
+    <hr style="width: 100%; border: 1px solid black;">
+    <h3>배열의 메소드</h3>
+    <h4>배열.indexOf(요소) : 배열의 요소의 위치값 리턴 </h4>
+    <button onclick="arrayTest3();">배열 테스트3</button>
+
+
+    <input type="text" id="fruit" placeholder="과일을 입력하세요.">
+    <button id="btn">확인</button>
+    <div id="result3"></div>
+
+    <script>
+        function arrayTest3() {
+            const arr = ["사과", "바나나", "딸기", "키위", "사과"];
+            const result3 = document.getElementById("result3");
+            result3.innerHTML = "배열의 요소 : " + arr + "<br>";
+            result3.innerHTML += "배열의 사과의 위치 : " + arr.indexOf("사과") + "<br>";
+            result3.innerHTML += "배열의 배의 위치 : " + arr.indexOf("배") + "<br>";
+        }
+
+        document.getElementById("btn").addEventListener("click", function () {
+            const fruit = document.getElementById("fruit").value;
+            const arr = ["사과", "바나나", "딸기", "키위", "배"];
+            const result3 = document.getElementById("result3");
+            result3.innerHTML = "배열의 요소 : " + arr + "<br>";
+
+            if (arr.indexOf(fruit) == -1) {
+                result3.innerHTML += "배열에 " + fruit + "이 없습니다. <br>";
+                return;
+            }
+            else {
+                result3.innerHTML += "배열에 " + fruit + "가 있습니다." + "<br>" + arr.indexOf(fruit) + " 번째에 있습니다. <br>";
+            }
+            // result3.innerHTML += "배열의 " + fruit + "의 위치 : " + arr.indexOf(fruit) + "<br>";
+        });
+    </script>
+
+</body>
+
+</html>

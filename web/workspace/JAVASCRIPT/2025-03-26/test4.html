@@ -1,0 +1,167 @@
+<body>
+
+    <h2>
+        1. 실행 버튼 클릭시 사용자에게 알람창(prompt)으로 "메세지를 입력하세요"문구를 출력해주고 <br>
+        이때 입력받은 내용이 div#test1에 출력될 수 있도록 하시오. <br>
+        단, 사용자에게 입력받은 값이 없을 경우 "메세지가 입력되지 않았습니다." 가 출력될수 있도록 하시오.
+    </h2>
+    <button onclick="test1();">실행</button>
+    <div id="test1"></div>
+
+    <hr>
+
+    <h2>
+        2. 실행 버튼 클릭시 사용자에게 알람창(confirm)으로 "개인정보활용에 동의하시겠습니까?"를 출력해주고 <br>
+        확인을 누르면 "당신의 개인정보가 유출되었습니다", 취소를 누르면 "당신의 개인정보 유출을 막았습니다" 라는 <br>
+        메세지가 div#test2에 출력될 수 있도록 하시오.
+    </h2>
+    <button onclick="test2();">실행</button>
+    <div id="test2"></div>
+
+    <hr>
+
+    <h2>
+        3. 실행 버튼 클릭시 10개의 랜덤(1~100)값을 발생시켜 해당 랜덤값을 담은 배열을 만들고 <br>
+        해당 배열을 내림차순 정렬 한 후 해당 숫자들이 div#test3&gt;ul 안에 총 10개의 li 요소로 출력될 수 있도록 하시오.
+    </h2>
+    <button onclick="test3();">실행</button>
+    <div id="test3">
+        <ul></ul>
+    </div>
+
+    <hr>
+
+    <h2>
+        4. input[type=text name=img]인 요소에 화면에 출력하고자 하는 이미지의 경로를 입력받은 후에 <br>
+        출력 버튼 클릭하면 div.img-container 요소 내에 사용자가 입력한 주소의 img가 200X200크기로 출력될 수 있도록 하시오.
+    </h2>
+    <input type="text" name="img">
+    <button onclick="test4();">출력</button>
+    <div class="img-container"></div>
+
+    <hr>
+
+    <h2>
+        5. 아래 태그의 데이터를 확인하기 버튼을 클릭하면 모두 가져와 3글자 이상인 데이터만 div#checkStr에 출력하기
+    </h2>
+    <div class="data-container">
+        <p>가나다라</p>
+        <p>abcde</p>
+        <h3>썬칩</h3>
+        <h4>홈런볼</h4>
+        <span>초코칩쿠키</span>
+        <p>칸쵸</p>
+        <h4>초코파이</h4>
+        <h2>칙촉</h2>
+    </div>
+    <button onclick="test5();">확인하기</button>
+    <div id="checkStr"></div>
+
+    <script>
+        function test1() {
+            const answer = window.prompt("메세지를 입력하세요");
+
+            if (answer === null || answer.trim() === "") {
+                // if (inputData == "" || inputData == null) 
+                // if(inputData) : 값이 존재하면 true 값이 없으면 false를 return 해준다.
+                alert("메세지가 입력되지 않았습니다.")
+            }
+            else {
+                document.getElementById("test1").innerHTML = answer;
+            }
+        }
+
+        function test2() {
+            const answer = window.confirm("개인정보활용에 동의하시겠습니까?");
+            console.log(answer);
+
+            if (answer) {
+                document.getElementById("test2").innerHTML = "니 개인정보 다털림";
+            }
+            else {
+                document.getElementById("test2").innerHTML = "개인정보 유출 막음";
+            }
+
+        }
+
+
+        function test3() {
+
+            inputarr = new Array(10);
+
+            for (let i = 0; i < inputarr.length; i++) {
+                inputarr[i] = Math.floor(Math.random() * 100) + 1;
+            }
+            // 내림차순 sort (a,b) => b-a
+            inputarr.sort((a, b) => b - a);
+
+            console.log(inputarr);
+
+            const ul = document.querySelector("#test3 > ul");
+            ul.innerHTML = "";
+
+            // for (let li in inputarr) {
+            //     let li2 = document.createElement("li");
+            //     li2.textContent = inputarr[li];
+            //     ul.appendChild(li2);
+            //     // console.log(inputarr[li]);
+            // }
+
+            inputarr.forEach((li) => {
+                // console.log(li);
+                const li2 = document.createElement("li");
+                li2.textContent = li;
+                // console.log(li2);
+                ul.appendChild(li2);
+
+            });
+
+            //for each로도 가능함 
+
+
+        }
+
+        function test4() {
+            const img_path = document.querySelector("input[name='img']").value;
+            // .은 class #은 id
+            const img_container = document.querySelector(".img-container");
+            img_container.innerHTML = "";
+
+
+            const img = document.createElement("img");
+            // const img_size = "200px";
+            img.src = img_path;
+            img.style.width = "200px";
+            img.style.height = "200px";
+
+            img_container.appendChild(img);
+
+
+        }
+
+        function test5() {
+            // data-container 안의 모든 자식 요소 선택
+            const elements = document.querySelectorAll(".data-container *");
+            console.log(elements);
+
+            // 결과를 출력할 div#checkStr 선택
+            const checkStr = document.getElementById("checkStr");
+            checkStr.innerHTML = ""; // 기존 내용 초기화
+
+            // 각 요소의 텍스트 값을 확인
+            elements.forEach(function(element) {
+                const text = element.textContent.trim(); // 요소의 텍스트 값 가져오기 (공백 제거)
+                if (text.length >= 3) { // 3글자 이상인 경우만 출력
+                    const p = document.createElement("p");
+                    // p.innerHTML = element.outerHTML;
+                    console.log(element); 
+                    p.innerHTML = element.innerHTML;
+                    checkStr.appendChild(p);
+                }
+            });
+        }
+                                           
+    </script>
+
+
+</body>

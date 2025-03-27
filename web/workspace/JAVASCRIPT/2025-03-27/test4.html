@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<script>
+    class information {
+        constructor(name, age, height, weight, addr, birthDay) {
+            this.name = name;
+            this.age = age;
+            this.height = height;
+            this.weight = weight;
+            this.addr = addr;
+            this.birthDay = birthDay;
+        }
+
+        getName() {
+            return this.name;
+        }
+    }
+</script>
+
+<h2>
+    출력 버튼을 클릭시 아래의 객체에 저장된 데이터(속성,속성값)의 내용을 ul안에 li요소로 출력되게 하시오.<br>
+    {name:"홍길동", age:23, height:163.5, weight:50.7, addr:"서울시 구로구", birthDay:2000/09/18}
+</h2>
+<div class="list-data">
+    <button onclick="test();">출력</button>
+    <ul></ul>
+</div>
+
+<script>
+    // person 객체 생성
+    const person = new information("홍길동", "23", "163.5", "50.7", "서울시 구로구", "2000/09/18");
+
+    // 출력 버튼 클릭 시 실행되는 함수
+    function test() {
+        const ul = document.querySelector(".list-data ul"); // ul 요소 선택
+        ul.innerHTML = ""; // 기존 내용 초기화
+
+        // person 객체의 키와 값을 순회하며 li 요소 생성
+        for (const [key, value] of Object.entries(person)) {
+            const li = document.createElement("li"); // li 요소 생성
+            li.textContent = `${key}: ${value}`; // li 내용 설정
+            // console.log(textContent);
+            ul.appendChild(li); // ul에 li 추가
+        }
+    }
+</script>
+
+</body>
+</html>

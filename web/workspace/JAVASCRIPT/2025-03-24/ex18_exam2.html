@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+
+<body>
+    <div id="result"></div>
+
+    <script>
+        let contacts = [
+            { name: "길동", phone: "010-1111-222", email: "kildong@aaa.bbb" },
+            { name: "준희", phone: "010-2111-222", email: "jh@aaa.bbb" },
+            { name: "대훈", phone: "010-3111-222", email: "dh@aaa.bbb" }
+        ];
+
+        const result = document.getElementById("result");
+
+        // 테이블 생성
+        let html = "<table border='1' style='border-collapse: collapse; width: 30%; text-align: center;'>";
+        html += "<thead>";
+        html += "<tr>";
+        html += "<th>이름</th>";
+        html += "<th>전화번호</th>";
+        html += "<th>이메일</th>";
+        html += "</tr>";
+        html += "</thead>";
+        html += "<tbody>";
+
+        // 데이터 추가
+        for (let i = 0; i < contacts.length; i++) {
+            html += "<tr>";
+            for (let p in contacts[i]) {
+                html += `<td>${contacts[i][p]}</td>`;
+                // html += `<td>${contacts[i].phone}</td>`;
+                // html += `<td>${contacts[i].email}</td>`;
+                //contacts[배열인덱스][속성값]
+            }
+            html += "</tr>";
+        }
+
+        html += "</tbody>";
+        html += "</table>";
+
+        // 결과 출력
+        result.innerHTML = html;
+    </script>
+</body>
+
+</html>

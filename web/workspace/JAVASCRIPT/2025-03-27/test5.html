@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
+    <!-- <script src='main.js'></script> -->
+</head>
+
+<script>
+
+    class tabledata {
+        constructor(no, title, writer, enrolldate) {
+            this.no = no;
+            this.title = title;
+            this.writer = writer;
+            this.enrolldate = enrolldate;
+        }
+
+
+
+
+    }
+
+</script>
+
+
+
+
+<body>
+
+
+    <h2>
+        1. 출력하기 버튼 클릭시 아래의 객체배열로 저장된 데이터를 div#data-table영역안에 table 요소를 만들어서 출력하시오.<br>
+        [{no:1,title:"첫번째",writer:"유저1",enrolldate:오늘날짜} <br>
+        {no:2,title:"두번째",writer:"유저2",enrolldate:오늘날짜} <br>
+        {no:3,title:"세번째",writer:"유저3",enrolldate:오늘날짜} <br>
+        {no:4,title:"네번째",writer:"유저4",enrolldate:오늘날짜}] <br>
+        * 이때 위의 객체배열을 전역변수로 만들어 둘 것 *
+    </h2>
+    <button onclick="test1();">출력하기</button>
+    <div id="data-table"></div>
+    <hr>
+    <h2>
+        2. 아래의 input태그들을 이용해서 사용자로부터 글번호, 제목, 작성자명, 작성일을 입력받고 <br>
+        추가 버튼 클릭시 위 10번 문제에서 세팅해둔 전역 객체배열에 추가한 후 table에도 한 행 추가 되는 기능을 구현하시오. <br>
+        (테스트시 1번 실행 후 2번 실행하기)
+    </h2>
+
+    글번호 : <input type="number" id="boardNo"> <br>
+    제목 : <input type="text" id="boardTitle"> <br>
+    작성자 : <input type="text" id="boardWriter"> <br>
+    작성일 : <input type="date" id="boardDate"> <br>
+
+    <button onclick="test2();">추가</button>
+
+    <script>
+        const arr = [
+            { no: 1, title: "첫번째", writer: "유저1", enrolldate: "2025-03-27" },
+            { no: 2, title: "두번째", writer: "유저2", enrolldate: "2025-03-27" },
+            { no: 3, title: "세번째", writer: "유저3", enrolldate: "2025-03-27" },
+            { no: 4, title: "네번째", writer: "유저4", enrolldate: "2025-03-27" }
+        ];
+
+        // 1. 출력하기 버튼 클릭 시 실행
+        function test1() {
+            const dataTable = document.getElementById("data-table");
+            dataTable.innerHTML = ""; // 기존 테이블 초기화
+
+            // 테이블 생성
+            const table = document.createElement("table");
+            table.setAttribute("border", "1");
+
+            // 테이블 헤더 생성
+            const thead = document.createElement("thead");
+            thead.innerHTML = `
+                <tr>
+                    <th>글번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
+                </tr>
+            `;
+            table.appendChild(thead);
+
+            // 테이블 바디 생성
+            const tbody = document.createElement("tbody");
+            arr.forEach(item => {
+                // console.log(item);
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${item.no}</td>
+                    <td>${item.title}</td>
+                    <td>${item.writer}</td>
+                    <td>${item.enrolldate}</td>
+                `;
+                tbody.appendChild(row);
+            });
+            table.appendChild(tbody);
+
+            // 테이블 추가
+            dataTable.appendChild(table);
+        }
+
+        // 2. 추가 버튼 클릭 시 실행
+        function test2() {
+            // 사용자 입력값 가져오기
+            const no = document.getElementById("boardNo").value;
+            const title = document.getElementById("boardTitle").value;
+            const writer = document.getElementById("boardWriter").value;
+            const enrolldate = document.getElementById("boardDate").value;
+
+            // 입력값 검증
+            if (!no || !title || !writer || !enrolldate) {
+                alert("모든 필드를 입력해주세요.");
+                return;
+            }
+
+            // 객체 배열에 추가
+            const newRow = { no: parseInt(no), title, writer, enrolldate };
+            arr.push(newRow);
+
+            // 테이블에 새로운 행 추가
+            const tbody = document.querySelector("#data-table table tbody");
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${newRow.no}</td>
+                <td>${newRow.title}</td>
+                <td>${newRow.writer}</td>
+                <td>${newRow.enrolldate}</td>
+            `;
+            tbody.appendChild(row);
+
+            // 입력 필드 초기화
+            document.getElementById("boardNo").value = "";
+            document.getElementById("boardTitle").value = "";
+            document.getElementById("boardWriter").value = "";
+            document.getElementById("boardDate").value = "";
+        }
+    </script>
+
+
+
+
+</body>
+
+</html>

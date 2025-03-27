@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+
+<body>
+    <style>
+        .area {
+            border: 1px solid black;
+            width: 500px;
+            height: 400px;
+        }
+
+        body {
+            display: flex;
+        }
+    </style>
+
+    <h3>배열관련 메소드</h3>
+    <h4>배열.concat(배열,배열,...)</h4>
+    <div id="area1" class="area"></div>
+    <button onclick="concatTest()">확인하기</button>
+
+    <script>
+        function concatTest() {
+            //id로 갖고올때는 #id로 갖고오고 class로 갖고올때는 .class로 갖고와야함
+            const area1 = document.querySelector("#area1");
+
+            const arr1 = ["사과", "딸기"];
+            const arr2 = ["자동차", "비행기", "오토바이"];
+            area1.innerHTML = "arr1 : " + arr1 + "<br><br>";
+            area1.innerHTML += "arr2 : " + arr2 + "<br><br>";
+            area1.innerHTML += "arr1.concat(arr2) : " + arr1.concat(arr2) + "<br><br>";
+            area1.innerHTML += "arr1 : " + arr1 + "<br><br>";
+            //arr1 배열 객체를 변경 안됨.
+            let arr3 = arr2.concat(arr1, [1, 2, 3]);
+            area1.innerHTML += "arr3 : " + arr3;
+
+        }
+    </script>
+
+
+    <h4>배열.reverse(배열,배열,...)</h4>
+    <div id="area2" class="area"></div>
+    <button onclick="reverseTest()">확인하기</button>
+
+    <script>
+        function reverseTest() {
+            const divEl = document.querySelector("#area2");
+            const arr = [1, 2, 3, 4, 5];
+            divEl.innerHTML = "arr : " + arr + "<br><br>";
+            divEl.innerHTML += "reverse : " + arr.reverse() + "<br><br>";
+            divEl.innerHTML += "arr : " + arr + "<br><br>"
+            //기존 원본의 것도 변경이 됨 
+        }
+    </script>
+
+    <h4>배열.sort()</h4>
+    <div id="area3" class="area"></div>
+    <button onclick="sortTest()">확인하기</button>
+
+
+    <script>
+        function sortTest() {
+
+            const divEl = document.querySelector("#area3");
+            const arr1 = ["홍길동", "김삿갓", "이몽룡", "홍길동", "김삿갓"];
+            divEl.innerHTML = "arr1 : " + arr1 + "<br><br>";
+            divEl.innerHTML += "arr1.sort : " + arr1.sort() + "<br><br>";
+            divEl.innerHTML += "arr1 : " + arr1 + "<br><br>";
+            divEl.innerHTML += "arr1.sort 내림차순 정렬하기 : " + arr1.sort().reverse() + "<br><br>";
+            divEl.innerHTML += "arr1 : " + arr1 + "<br><br>";
+
+            const arr2 = [23, 12, 51, 23, 51, 101, 201];
+            /**
+              배열내의 요소들을 문자열로 변경하여 아스키코드 문자 순서대로 정렬함 
+              숫자 크기로 정렬이 안됨 
+            */
+
+            divEl.innerHTML += "arr2 : " + arr2.sort(function (left, right) { return right - left }) + "<br><br>";
+
+            //sort도 하면 기본 배열이 변경이됨 
+
+        }
+
+    </script>
+
+
+    <h4>배열의 값을 추가하기</h4>
+    <div id="area4" class="area"></div>
+    <button onclick="pushpopTest()">확인하기</button>
+    <script>
+
+        function pushpopTest() {
+            const divEl = document.querySelector("#area4");
+            const arr = ["서초동", "우장산동", "역삼동", "가산동", "방배동"];
+            divEl.innerHTML = "arr : " + arr + "<br>";
+            divEl.innerHTML += "arr에 데이터 추가 후 배열의 크기 : " + arr.push("신도림동") + "<br>";
+            divEl.innerHTML += "arr : " + arr + "<br><br>";
+            arr.push("신사동");
+            arr.push("응암동");
+
+            /*
+            push(value) : 배열에 값을 추가. 배열의 크기를 return
+            */
+            divEl.innerHTML += "2개를 push하고 난 후의 배열" + arr + "<br><br>";
+            divEl.innerHTML += "pop 한번 후의 모습 : " + arr.pop() + "<br>";
+
+            divEl.innerHTML += "arr : " + arr + "<br><br>"
+            //배열의 pop을 한번하면 맨뒤에 있는것이 지워진다 return값으로는 맨뒤에 값을 return 해준다. 
+            //원본 배열에도 끼치는듯
+            //push도 원본배열에 끼친다.
+            //concat을 제외하고 나머지 전부는 원본배열에 끼치는거같다.
+            arr.pop(); arr.pop(); arr.pop();
+
+            divEl.innerHTML += "pop 총 4번했음 : " + arr;
+        }
+
+
+    </script>
+
+    <h3>Shift를 이용한 배열 </h3>
+    <div id="area5" class="area"></div>
+    <button onclick="shiftTest()">확인하기</button>
+
+    <script>
+        function shiftTest() {
+            const divEl = document.querySelector("#area5");
+            const arr = ["당구", "야구", "볼링", "테니스"];
+            arr.unshift("농구");
+            divEl.innerHTML = "unshift 후 :  " + arr + "<br>";
+            divEl.innerHTML += "unshift 후의 크기 : " + arr.unshift("탁구") + "<br>";
+            divEl.innerHTML += "arr 원본 : " + arr + "<br>";
+            let del = arr.shift();
+            divEl.innerHTML += "제거시킨 요소(shift) :  " + del + "<br>";
+            divEl.innerHTML += "arr : " + arr;
+            // unshift는 배열의 무조건 앞에 있는것이 맞는듯
+            // shift는 배열의 가장최근의 unshift인것을 지운다. 맨 앞에 있는 요소를 제거합니다. 
+            // 모두 원본배열의 영향을 끼친다.
+        }
+    </script>
+
+    <h3>Split를 이용한 배열 </h3>
+    <div id="area6" class="area"></div>
+    <button onclick="splitTest()">확인하기</button>
+    <!-- slice는 배열의 split 처럼 몇번째부터 몇번째 미만까지 갖고올수있음 slice(시작인덱스부터 , 마지막인덱스 전까지)
+        splice는 배열의 시작인덱스부터 마지막인덱스 전까지 특정문자를 특정문자로 변경가능 
+        splice(시작인덱스 , 삭제할카운트 , 삭제하고 추가할 요소)
+        원본배열 변경 
+    -->
+
+    <script>
+
+        function splitTest() {
+            const divEl = document.querySelector("#area6");
+
+            const arr = ["옹", "도망가지마", "맞서싸워", "에이씨 나쁜놈 AC"];
+            divEl.innerHTML = "arr : " + arr + "<br>";
+            divEl.innerHTML += "split을 한번 해봄" + "<br>";
+            divEl.innerHTML += "arr.slice(1,3) : "  + arr.slice(1,3) + "<br><br>";
+            const arr2 = ["오 니까지게 뭔데" , "이게 어떻게 띠용띠용이야"] + arr.splice(1,3) + "<br>";
+            divEl.innerHTML += "slice로 부분으로 갖고와서 새로운 배열로 도 가능 : " + arr2 + "<br>";
+            const arr3 = ["Oracle"];
+
+            arr3.splice(1,1,"Oracle","MariaDB");
+            divEl.innerHTML += "<br><br>";
+            divEl.innerHTML += arr3
+
+
+        }
+
+
+    </script>
+
+</body>
+
+</html>

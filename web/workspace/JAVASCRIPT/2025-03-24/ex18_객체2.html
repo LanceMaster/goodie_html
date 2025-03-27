@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
+    <!-- <script src='main.js'></script> -->
+</head>
+
+<body>
+    <script>
+        const obj = {
+            age: 30,
+            name: '길동',
+            friend: {
+                name: "삿갓",
+                phone: "010-1111-2222"
+            },
+            hobbies: [
+                "여행", "축구", "피아노"
+            ],
+            info: function () {
+                console.log("이름 : " + obj.name, " ", "나이 : " + obj.age);
+
+            }
+
+        };
+
+        // (obj.info)();
+
+        // console.log(" 이름 " + obj.name);
+        // console.log(" 나이 " + obj.age);
+        // console.log(" 친구 " + obj.friend.name + "   " + "전화번호 " + obj.friend.phone);
+        // console.log(" 취미 " + obj.hobbies);
+
+        // for(let i = 0; i< obj.hobbies.length; i ++ ) {
+        //     console.log("")
+        // }
+
+        // for (let i = 0; i < obj.hobbies.length; i++) {
+        //     console.log(`${i}번째 취미: ${obj.hobbies[i]}`);
+        // }
+
+        // for (const element of obj.hobbies) {
+        //     console.log(element);
+        // }
+
+        for(let c in obj.hobbies) {
+            console.log(c , " : " ,obj.hobbies[c]);
+        }
+
+    </script>
+
+    <hr style="border: 1px solid black;">
+
+    <script>
+        //객체의 속성은 동적추가가 가능하다.
+
+        let computer = {};
+
+        computer.model = 'gram';
+        //추가함
+        computer.price = 4000;
+        console.log(computer);
+        //객체의 속성값 조회 
+
+        for(let c in computer) {
+            console.log(c , " : " + computer[c]); //for in 구분에서는 마침표를 이용한 속성 참조가 안되고 대괄호를 이용한것만 가능
+        }
+
+        //속성값 제거
+
+        delete computer.price;
+        console.log(computer);
+    </script>
+</body>
+
+</html>

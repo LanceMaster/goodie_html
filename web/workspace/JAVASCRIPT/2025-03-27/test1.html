@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='../../jquery/resource/jquery_3.7.1.js'></script>
+</head>
+
+<body>
+    <h2>
+        아래의 input[type=number] 두개는 숫자를, select&gt;option 요소는 연산하고자 하는 연산자를 입력받기 위한 것이다. <br>
+        실행 버튼 클릭시 사용자가 입력한 값들을 가지고 그에 맞는 적절한 연산 후 div#calc-result에 결과가 출력될 수 있도록 하시오.
+    </h2>
+    <div id="cal-container">
+        <input type="number" id="su1">
+        <input type="number" id="su2">
+        <select name="op" id="op">
+            <option value="+" selected="selected">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+        <button onclick="test();" id>실행</button>
+        <div id="calc-result"></div>
+    </div>
+
+
+    <script>
+
+        function test() {
+
+            const number1 = parseFloat(document.querySelector("#su1").value);
+            const number2 = parseFloat(document.querySelector("#su2").value);
+            const operator = document.querySelector("#op").value;
+
+            console.log(number1);
+            console.log(number2);
+            console.log(operator);
+
+
+            let result = 0;
+
+
+            switch (operator) {
+
+                case "+":
+                    result = number1 + number2;
+                    break;
+
+                case "-":
+                    result = number1 - number2;
+                    break;
+
+
+                case "*":
+                    result = number1 * number2;
+                    break;
+
+
+
+                case "/":
+                    result = (number1 / number2).toFixed(2);
+                    break;
+
+                default:
+                    result = "Error";
+
+            }
+
+
+            document.querySelector("#calc-result").innerHTML = result;
+
+
+        }
+
+
+    </script>
+
+</body>
+
+</html> 

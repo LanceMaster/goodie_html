@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<style>
+    .area {
+        width: 500px;
+        height: 300px;
+        border: 1px solid black;
+    }
+</style>
+<body>
+<!-- 
+    1.선언 함수
+        1)함수 이름 있음
+        2)함수 정의와 호출로 구분함 
+
+
+-->
+    <h1>함수 (function)</h1>
+    <h3 onclick="h3_click()">선언적 함수</h3>
+    <pre>
+        function 함수명([매개변수,매개변수 , ..]) {
+            해당 함수 호출시 실행 시킬 소스코드;
+            [return 결과값;]
+
+        }
+
+        
+    </pre>
+    <button onclick="test1()">실행확인</button>
+    <button onclick="test2([10,20,30])">실행확인2</button>
+    <button onclick="test2('안녕하세요','홍길동입니다.')">실행확인3</button>
+    <button onclick="area2('block')">area 열기</button>
+    <button onclick="area2('none')">area 닫기</button>
+    <div class="area" id ="area1"></div>
+
+
+    <script>
+        function h3_click() {
+            window.alert("선언적 함수 클릭됨");
+        }
+
+        function test1() {
+            window.alert("너는 실행확인 버튼을 눌렀어");
+            document.querySelector("#area1").innerHTML = "너 실행확인 버튼 눌렀어";
+            // document.getElementById("area1").style.display = 'none';
+        }
+
+        function test2(value) {
+            console.log(arguments);
+            document.getElementById("area1").innerHTML += arguments[0] + "<br>";
+            document.getElementById("area1").innerHTML += arguments[1] + "<br>";
+            document.getElementById("area1").innerHTML += value;
+
+
+        }
+
+        function area2(value) { 
+            document.getElementById("area1").style.display = value;
+        }
+    </script>
+
+    <hr style="border: 1px solid black;">
+
+    <h2>함수의 리턴 </h2>
+
+    <button onclick="alert(ran())">클릭</button>
+
+    <script>
+        function ran() {
+            
+            return parseInt(Math.random() * 100 + 1);
+
+        }
+    </script>
+    <br>
+    <h3>익명함수를 리턴 </h3>
+    <label>이름 : </label>
+    <input type="text" id="userName">
+    <br>
+    <label>숫자 1 :</label>
+    <input type="number" id="number1">
+    <br>
+    <label>숫자 2 :</label>
+    <input type="number" id="number2">
+    
+
+    <!-- <button onclick="test5()()">실행확인</button> -->
+    <button onclick="testNumber(number1,number2)">실행확인</button>
+    <script>
+        function test5() {
+            const inputEL = document.getElementById("userName");
+
+            //리턴을 함수로도 가능하다
+            //변환 타입의 선언이 없다.
+            // return 키워드로 함수를 종료함 
+            // 값을 변환해야하는경우 return 값;
+            // return 함수(); 
+            return function() {
+                window.alert(inputEL.value);
+            }
+
+        
+        }
+
+        function testNumber(value1,value2) {
+            console.log(arguments);
+            console.log(value1 + value2);
+        }
+    </script>
+
+</body>
+</html>

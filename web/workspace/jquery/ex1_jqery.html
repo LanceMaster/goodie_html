@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' shref='main.css'>
+    <!-- 
+    cdn방식과 아예 그냥 script src에 jquery의 파일을 그냥 담아버리는 2가지가 있다.
+    -->
+    <script src='../jquery/resource/jquery_3.7.1.js'></script>
+    </script>
+</head>
+
+<body>
+    <textarea id="text_input" rows="5" cols="30" placeholder="텍스트를 입력하세요"></textarea>
+    <p>현재 길이: <span id="text_length">0</span></p>
+    <!-- <p>숫자 증가 값: <span id="number_counter">0</span></p> -->
+
+    <script>
+        $(document).ready(() => {
+            // let counter = 0; // 숫자 증가 값 초기화
+
+            // textarea 입력 이벤트 처리
+            $('#text_input').on('input', function () {
+                const textLength = $(this).val().length; // 입력된 텍스트의 길이 계산
+                $('#text_length').text(textLength); // 현재 길이를 표시
+
+                // counter += textLength; // 숫자 증가
+                // $('#number_counter').text(counter); // 증가된 숫자를 표시
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>

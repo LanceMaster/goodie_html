@@ -1,0 +1,109 @@
+<!-- 
+ 
+BOM : Browser Object Model (브라우저 객체 모델)
+    1.브라우저의 구성요소를 객체로 처리할 수 있는 기능
+        => 브라우저의 구성 요소가 이미 객체로 생성 되어 있음(내장객체 의미)
+    2. BOM 객체
+        1) WINDOW : 브라우저 창을 의미 . 최상위객체임 . 생략 가능 
+        2) SCREEN : 화면을 의미. 화면의 너비 / 높이등 처리
+        3) HISTORY : 방문 경로를 저장
+        4) LOCATION : 브라우저의 경로 처리  . URL 변경 가능
+        5) DOCUMENT : 현재 브라우저의 문서를 의미 
+            DOM : 문서상의 모든 요소들 BOM의 최상위는 WINDOW이다.
+            DOCUMENT (DOM의 최상의 객체)
+                -HTML
+                    -HEAD
+                        - META , TITLE
+                            -BODY
+                                -DIV
+                                -UL
+                                    -LI
+                                -...
+            노트(NODE) : HTML 요소
+                -요소노드(ELEMENTS NODE) : 태그 , 요소 , 객체
+                -텍스트노드 (TEXT NODE) : 태그내의 내용을 텍스트 노드라고 불린다.
+                    <div>텍스트<div> <= 해당것을 div 텍스트 노드가 존재한다라고 말함
+                    <input type = ""> <= 해당것을 텍스트노드가 존재하지 않는다고 말함 emptyTag 빈(empty)태그
+-->
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/web/workspace/JAVASCRIPT/main.css'>
+    <!-- <script src='main.js'></script> -->
+</head>
+
+<body>
+
+    <div id="area" class="area">
+
+    </div>
+
+    <!-- screen -->
+    <script>
+        //SCREEN 객체 TEST
+        console.log("화면너비  : " + screen.width);
+        console.log("화면 높이 : " + screen.height);
+        console.log("실제 너비 : " + screen.availWidth);
+        console.log("실제 높이 : " + screen.availHeight);
+    </script>
+
+    <!-- history -->
+    <!-- back forward를 많이 씀  -->
+    <input type="button" value="HISTORY BACK" onclick="history.back()">
+    <input type="button" value="HISTORY FORWARD" onclick="history.forward()">
+
+    <input type="button" value="뒤로가기" onclick="history.go(-1)">
+    <input type="button" value="뒤로 2번가기" onclick="history.go(-2)">
+    <!-- location 객체 -->
+    <br>
+    <!-- 내부에서 있는게 아니라 밖에있는거는 https:// protocol를 무조건 써야한다. -->
+    <input type="button" style="padding: 3px; margin: 15px;" onclick="location.href='https://www.naver.com'"
+        value="네이버">
+    <input type="button" style="padding: 3px; margin: 15px;" onclick="location.href='https://www.google.com'"
+        value="구글">
+
+    <!-- window 객체 -->
+
+    <div>
+        <input type="button" value="창열기" id="btn_open">
+        <input type="button" value="창닫기" id="btn_close">
+
+    </div>
+
+    <script>
+
+        // let nwin; 전역변수 정의
+        
+        document.getElementById("btn_open").addEventListener("click", function () {
+            let width = 400;
+            let height = 360;
+            let left = (screen.width - width) / 2; //가로 기준 가운데 위치
+            let top = (screen.height - height) / 2; //세로 기준 가운데 위치
+            let feature = `width=${width},height = ${height},left=${left},top=${top}`;
+            // window 생략가능 새로운창을 띄우기 open(화면에 출력할 URL,화면의 이름,화면의옵션)
+            // window.open("ex21_popup.html",'',feature);
+             nwin = window.open("ex21_popup.html",'',feature); 
+             //아무것도 안쓰면 nwin은 전역변수다
+             //nwin은 다른 document에서도 사용가능하다는것이다.
+            
+
+        })
+        document.getElementById("btn_close").addEventListener("click",() => {
+            nwin.close(); //nwin은 window 객체이기때문에 ex21_popup.html를 닫을수있다.
+            //window아래에 document도 설정도 가능함
+
+            // nwin.document.addEventListener("click",()=> {
+            //     window.alert("클릭함");
+            // })
+        })
+    </script>
+</body>
+
+</html>

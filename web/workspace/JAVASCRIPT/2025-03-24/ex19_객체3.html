@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script> -->
+</head>
+
+<body>
+
+
+
+
+    <script>
+        /**
+         * 생성자 함수
+         *  1. 객체를 만드는 ㅎ마수
+         *  2. 보통 첫글자를 대문자로 작성한다.
+         *  3. 생성자 함수 정의 
+         *      function 함수명(매개변수 , ....) {
+         *          this.속성 = 매개변수;        
+         *  }
+         *  4. 객체 생성
+         *      let 변수 = new 함수(인수 , .....) 
+         * 
+         */
+
+        //생성자 함수 정의
+        function Product(code, name, price) {
+            this.code = code;
+            this.name = name;
+            this.price = price;
+        }
+
+        let p1 = new Product('A100', '홈런볼', 1000);
+        let p2 = new Product('A101', '홈런왕', 2000);
+
+
+
+    </script>
+
+    <script>
+        /**
+         * 프로토타입(prototype)
+         *  1. 객체들이 공유하는 메모리 공간을 의미함 
+         *  2. 공통 데이터 (값,함수)를 프로토타입에 저장해서 사용가능
+         *  3. 사용방법
+         *      1)생성자 함수 내부
+         * 
+         */
+
+         function korea(name) {
+             this.name = name;
+             this.nation = 'SOUTH-KOREA',
+             this.slogan = function() {
+                console.log("빨리빨리");
+             }
+         }
+
+
+         const test1 = new korea('김준희');
+         const test2 = new korea('김대훈');
+
+         console.log(test1);
+         console.log(test2);
+         console.log(test1.slogan());
+         console.log(test2.slogan());
+
+         //외부로 구현도 가능함
+
+         function america(name) {
+            this.name = name;
+         }
+
+         
+         america.prototype.nation    = 'UNITED-STATE-AMERICA';
+         america.slogan = function() {
+            console.log("모름")
+         }
+         let test3 = new america('Mike');
+
+         console.log(test3);
+         test3.slogan();
+    </script>
+
+
+    <script>
+        let now = new Date(); //현재
+        //오늘의 요일 출력하기
+        let weekNames = ['일','월','화','수','목','금','토'];
+        console.log(weekNames[now.getDay()] + "요일");
+        //Date 객체의 prototype에 getWeekNames() 함수를 등록하기 
+       
+       
+        Date.prototype.getWeekNames = function() {
+
+            let weekNames = ['일','월','화','수','목','금','토'];
+            return weekNames[this.getDay()];
+
+        }
+
+        console.log("prototype : " + now.getWeekNames()+"요일");
+    </script>
+</body>
+
+</html>

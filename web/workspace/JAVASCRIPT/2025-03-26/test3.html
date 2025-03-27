@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>이미지 클릭 게임</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+
+<body>
+
+    <script type="text/javascript">
+        // 랜덤한 정수를 반환하는 함수
+        function nextRandomInterger(limit) {
+            return Math.round(Math.random() * limit);
+        }
+
+        // 랜덤한 속도를 반환하는 함수
+        function randomSpeed(maxspeed) {
+            return Math.random() * maxspeed - Math.random() * maxspeed;
+        }
+
+        // 캔버스의 크기 설정
+        let canvasWidth = 700;
+        let canvasHeight = 500;
+
+        // 남은 이미지 수
+        let total = 10;
+
+        // MovingTest 객체 생성자
+        function MovingTest() {
+            // 초기 위치를 랜덤하게 설정
+            this.x = nextRandomInterger(canvasWidth);
+            this.y = nextRandomInterger(canvasHeight);
+
+            // 초기 속도를 랜덤하게 설정
+            this.vx = randomSpeed(2);
+            this.vy = randomSpeed(2);
+
+            // 이미지 태그 생성 및 초기 설정
+            this.body = document.createElement("img");
+            this.body.src = "/web/resource/apple.gif"; // 기본 이미지: 사과
+            this.body.style.width = "35px";
+            this.body.style.height = "35px";
+            this.body.style.position = "absolute";
+            this.body.style.left = this.x + "px";
+            this.body.style.top = this.y + "px";
+
+            // 클릭 이벤트 등록
+            this.body.onclick = () => {
+                //this.body.src => 문자열
+                if (this.body.src.includes("/web/resource/apple.gif")) { // 사과 이미지일 경우
+                    this.body.src = "/web/resource/strawberry.gif"; // 바나나 이미지로 변경
+                    --total; // 남은 이미지 수 감소
+                    alert("남은 이미지 수: " + total);
+                }
+            };
+
+            // 이미지 태그를 문서에 추가
+            document.body.appendChild(this.body);
+        }
+
+        // MovingTest 객체의 move 메서드
+        MovingTest.prototype.move = function () {
+            // 바나나 이미지로 변경된 경우 더 이상 움직이지 않음
+            if (this.body.src.includes("/web/resource/strawberry.gif")) return;
+
+            // x 좌표가 캔버스 경계를 벗어나면 방향 반전
+            if (this.x < 0 || this.x > canvasWidth) {
+                this.vx *= -1; 
+            }
+
+            // y 좌표가 캔버스 경계를 벗어나면 방향 반전
+            if (this.y < 0 || this.y > canvasHeight) {
+                this.vy *= -1; 
+            }
+
+            // 위치 업데이트
+            this.x += this.vx;
+            this.y += this.vy;
+
+            // 이미지 태그의 위치를 업데이트
+            this.body.style.left = this.x + "px";
+            this.body.style.top = this.y + "px";
+        };
+
+        // 페이지 로드 시 실행
+        window.onload = () => {
+            let movingImages = []; // MovingTest 객체 배열
+
+            // 10개의 MovingTest 객체 생성
+            for (let i = 0; i < 10; i++) {
+                movingImages.push(new MovingTest());
+            }
+
+            // 게임 루프
+            let game = setInterval(() => {
+                for (let i in movingImages) {
+                    // 남은 이미지가 4개 미만이면 게임 종료
+                    if (total < 4) {
+                        window.alert("Game Over");
+                        clearInterval(game); // interval 종료
+                        return; //onload function 종료
+                    }
+                    movingImages[i].move(); // 각 객체를 이동
+                }
+            }, 1000 / 60); // 60FPS로 실행
+        };
+    </script>
+
+</body>
+
+</html>

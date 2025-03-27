@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<!-- ex25_wordgame.html  -->
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
+    <!-- <script src='main.js'></script> -->
+</head>
+<style>
+    div {
+        position: absolute;
+
+    }
+
+    #main {
+        width: 450px;
+        height: 400px;
+        border: 1px solid blue;
+        overflow: hidden;
+    }
+
+    input {
+        position: absolute;
+        top: 410px;
+        left: 10px;
+        size: 200px;
+    }
+
+    #scorearea {
+        position: absolute;
+        top: 410px;
+        left: 210px;
+        border: 1px solid #333333;
+        width: 200px;
+        height: 20px;
+    }
+
+    #score {
+        position: relative;
+        left: 30px;
+        display: inline;
+    }
+</style>
+
+<body>
+    <!-- MAIN -->
+    <div id="main">
+
+    </div>
+
+    <div style="width: 400px;">
+
+    </div>
+    <input type="text" onchange="deleteMode(this.value)" id="input">
+    <div id="scorearea">
+        점수 : <div id="score"></div>
+    </div>
+
+    <script>
+        let datas = [
+            ["몬헌", "엘든링", "페르소나", "퍼스트 디센던트", "다크소울", "더퍼스트 카잔", "블러드본", "세키로"]
+            ,
+            ["스파이더맨", "갓오브워", "비트세이버", "디제이맥스", "던전앤파이터", "메이플스토리", "로스트아크"]
+        ]
+        let cnt = 0;
+        let words = [];
+        let colors = ['red', 'blue', 'green', 'grey', 'orange', 'black', 'pink'];
+        let canvasWidth = 400;
+        let canvasHeight = 400;
+        let createInterval = 3000;
+        let moveInterval = 500;
+        window.onload = function () {
+            cm = setInterval(createMode, createInterval);
+            mm = setInterval(moveMode, moveInterval);
+        }
+        function MovingChar() {
+            this.h3 = document.createElement('p');
+            this.h3.innerHTML = randomData();
+            this.x = random(canvasWidth);
+            this.y = 0;
+            this.vy = 20;
+            this.h3.style.position = 'absolute';
+            this.h3.style.left = this.x + 'px';
+            this.h3.style.color = colors[random(6)];
+            document.querySelector("#main").appendChild(this.h3);
+        }
+
+        MovingChar.prototype.move = function () {
+            if ((this.x + this.h3.innerHTML.length) > canvasWidth) {
+                this.x = canvasWidth - (this.h3.innerHTML.length + 1);
+            }
+            this.y += this.vy;
+            this.h3.style.top = this.y + "px";
+
+        };
+
+        MovingChar.prototype.remove = function () {
+            document.querySelector("#main").removeChild(this.h3);
+        };
+
+        function createMode() {
+            words.push(new MovingChar());
+        }
+
+        function moveMode() {
+            for (let i in words) {
+                words[i].move();
+                if (words[i].y >= canvasHeight - 30) { //바닥에 단어가 닿음 게임 종료 상태
+                    //단어의 높이가 words[i].y는 20씩 계속 interval하는것만큼 증가한다.
+                    // 이게 canvasHeight 땅바닥 - 30만큼 보다 커졌을때 
+                    //못하는걸로 판정
+
+                    document.querySelector("#main").removeChild(words[i].h3); //#main 영역에서 제거 메모리에는 존재
+                    delete (words[i]);  //words[i] : movingChar 객체를 메모리에서 삭제
+                    clearInterval(cm);
+                    clearInterval(mm);
+                    for (let j in words) {
+                        words[j].h3.style.color = "gray"
+                    }
+                    window.alert("게임 종료");
+
+                }
+            }
+        }
+
+        function random(num) {
+            let num1 = Math.random() * num;
+            num1 = parseInt(num1);
+            return num1;
+        }
+
+        function randomData() {
+            let num1 = Math.random() * 2;
+            num1 = parseInt(num1);
+            let num2 = Math.random() * datas[num1].length;
+            num2 = parseInt(num2);
+            return datas[num1][num2];
+        }
+        //input 데이터의 value 값이 변경되는 경우 호출되는 함수
+        function deleteMode(str) { //str 니가 입력한 값
+            for (let i in words) {
+                words[i].move();
+                if (words[i].h3.innerHTML == str) {
+                    document.querySelector("#main").removeChild(words[i].h3);
+                    delete (words[i]); //메모리에서 삭제한다.
+                    score.innerHTML = ++cnt;
+
+                    // if(score.innerHTML > 1) {
+                    //     clearInterval(cm);
+                    //     clearInterval(mm);
+                    //     return;
+                    // }
+
+                    if (score.innerHTML % 5 === 0) {
+
+                        console.log(cm);
+                        clearInterval(cm);
+                        clearInterval(mm);
+
+                        const proceed = window.confirm("다음레벨로 넘어갑니다.")
+
+
+
+                        console.log(proceed);
+
+                        if (proceed) {
+                            const main = document.querySelector("#main");
+                            const elements = main.querySelectorAll("p"); // div#main 내부의 모든 <p> 요소 선택
+
+                            elements.forEach((element) => {
+                                main.removeChild(element); // 각 <p> 요소를 제거
+                            });
+
+
+
+                            increaeSpeed();
+
+                        }
+                        else return;
+                    }
+
+                }
+            }
+
+            document.querySelector("#input").value = "";
+            document.querySelector("#input").focus();
+        }
+
+
+        function increaeSpeed() {
+            createInterval = Math.max(500, createInterval - 200);
+            moveInterval = Math.max(100, moveInterval - 30);
+            window.alert(createInterval);
+            window.alert(moveInterval);
+            cm = setInterval(createMode, createInterval);
+            mm = setInterval(moveMode, moveInterval);
+
+
+        }
+
+
+
+    </script>
+
+
+</body>
+
+</html>

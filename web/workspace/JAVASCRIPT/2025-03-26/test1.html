@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
+    <!-- <script src='main.js'></script> -->
+</head>
+
+
+
+
+
+
+<body>
+
+    <div id="result" class="result"></div>
+
+
+
+
+
+    <script>
+
+        // class Person {
+
+        //     constructor(name, blog) {
+        //         this.name = name;
+        //         this.blog = blog;
+        //     }
+
+        //     getName() {
+        //         return this.name;
+        //     }
+
+        //     getBlog() {
+        //         return this.blog;
+        //     }
+        // }
+
+        function Person(name, blog) {
+            this.name = name;
+            this.blog = blog;
+
+
+
+            Person.prototype.getName = function (name) {
+                return this.name;
+            }
+
+            Person.prototype.getBlog = function (blog) {
+                return this.blog;
+            }
+
+        }
+
+
+
+        let kim = new Person("김삿갓", "kimsg.tistory.com");
+        let lee = new Person("이몽룡", "leemy.tistory.com");
+
+        const result = document.getElementById("result");
+        result.innerHTML += kim.getName() + "<br>";  //김삿갓
+        result.innerHTML += kim.getBlog() + "<br>";
+        result.innerHTML += lee.getName() + "<br>";  //김삿갓
+        result.innerHTML += lee.getBlog() + "<br>";
+
+
+
+    </script>
+    `
+</body>
+
+</html>

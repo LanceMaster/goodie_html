@@ -49,8 +49,7 @@
 
                 //lastdate.getdate로 해당 마지막월의 마지막 날짜
                 const lastDay = lastDate.getDate();
-                console.log("lastdate" + lastDate)
-                console.log("lastday" + lastDay);
+              
 
                 // 월 제목 및 달력 생성
                 let table = `<div class="calendar-month"><h2>${month}월</h2>`;
@@ -83,6 +82,10 @@
                         table += '</tr><tr>';
                     }
                 }
+
+                console.log("lastdate" + lastDate);
+                console.log("lastday" + lastDay);
+                console.log("count" + count);
 
                 for (let i = 0; i < 7 - count % 7; i++) {
                     table += '<td></td>';

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <h1>객체</h1>
+    <h3>객체의 선언 및 사용</h3>
+    <button onclick="test1()">실행 확인</button>
+    <div id ="area1" class="area big"></div>
+    <script>
+
+        function test1() {
+
+            /**
+             * 객체 (OBJECT)
+             *  (1) : 여러개의 값으로 구성된 하나의 데이터 
+             *  (2) {}로 표현한다.
+             *  (3) 하나의 값은 쌍(pair)로 구성
+             *      {
+             *      "속성명" : "속성값"
+             *      }
+             *      위와 같은 식으로 표현한다.
+             *  객체의 속성 조회 
+             *  1.마침표 : 객체.속성명
+             *  2.[]대괄호 : 겍체["속성명"]
+             */
+            const arr = ["망고",4000,"피클",[1,2,3]];
+            const product = {
+                "pName" : "망고",
+                //"" 써도 됨 
+                price : 4000,
+                kind : "피클",
+                ingredient : ["오","ㅋㅋ"]
+            };
+            
+            console.log(product);
+            console.log(typeof product);
+
+
+            //객체명.속석명을   이용한 접근방법
+            //객체명[속성명] 으로도 가능함
+            const name = document.getElementById("area1");
+            name.innerHTML = product + "<br>";
+            name.innerHTML += typeof product + "<br>";
+            name.innerHTML += product.pName + "," + product.price + "," + product.kind + "," + product.ingredient[0] ;
+
+        };
+
+
+    </script>
+
+
+</body>
+</html>

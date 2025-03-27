@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 랜덤한 정수를 반환하는 함수
+        function nextRandomInterger(limit) {
+            return Math.round(Math.random() * limit);
+        }
+
+        // 랜덤한 속도를 반환하는 함수
+        // 음수와 양수 모두 가능하며, -maxspeed ~ +maxspeed 범위의 값을 반환
+        function randomSpeed(maxspeed) {
+            return Math.random() * maxspeed - Math.random() * maxspeed;
+        }
+
+        // 캔버스의 크기 설정
+        let canvasWidth = 700;
+        let canvasHeight = 500;
+
+        // 남은 문자 수
+        let total = 10;
+
+        // MovingTest 객체 생성자
+        function MovingTest() {
+            // 초기 위치를 랜덤하게 설정
+            this.x = nextRandomInterger(canvasWidth);
+            this.y = nextRandomInterger(canvasHeight);
+
+            // 초기 속도를 랜덤하게 설정 (음수일 경우 왼쪽/위쪽으로 이동)
+            this.vx = randomSpeed(2);
+            this.vy = randomSpeed(2);
+
+            // h1 태그 생성 및 스타일 설정
+            this.body = document.createElement("h1");
+            this.body.innerHTML = "A"; // 초기 문자 "A"
+            this.body.setAttribute("style", "background-color : white");
+            this.body.style.position = "absolute";
+
+            let text = this.body; // h1 태그 참조
+
+            // 클릭 이벤트 등록
+            this.body.onclick = function() {
+                --total; // 남은 문자 수 감소
+                alert("남은 문자 수 : " + total);
+                text.innerHTML = "B"; // 클릭 시 "B"로 변경
+            }
+
+            // h1 태그를 문서에 추가
+            document.body.appendChild(this.body);
+        }
+
+        // MovingTest 객체의 move 메서드
+        MovingTest.prototype.move = function() {
+            // 문자가 "B"로 변경된 경우 더 이상 움직이지 않음
+            if (this.body.innerHTML == 'B') return;
+
+            // x 좌표가 캔버스 경계를 벗어나면 방향 반전
+            if (this.x < 0 || this.x > canvasWidth) {
+                this.vx *= -1; // 속도를 반전
+            }
+
+            // y 좌표가 캔버스 경계를 벗어나면 방향 반전
+            if (this.y < 0 || this.y > canvasHeight) {
+                this.vy *= -1; // 속도를 반전
+            }
+
+            // 위치 업데이트
+            this.x += this.vx;
+            this.y += this.vy;
+
+            // h1 태그의 위치를 업데이트
+            this.body.style.left = this.x + "px";
+            this.body.style.top = this.y + "px";
+        }
+
+        // 페이지 로드 시 실행
+        window.onload = () => {
+            let movingTexts = []; // MovingTest 객체 배열
+            
+            // 10개의 MovingTest 객체 생성
+            for (let i = 0; i < 10; i++) {
+                movingTexts.push(new MovingTest());
+            }
+
+            // 게임 루프
+            let game = setInterval(() => {
+                for (let i in movingTexts) {
+                    // console.log(i);
+                    // 남은 문자가 4개 미만이면 게임 종료
+                    if (total < 4) {
+                        window.alert("Gameover");
+                        clearInterval(game); // 게임 루프 종료 setInterval()취소
+                        return; //function 종료
+                    }
+                    movingTexts[i].move(); // 각 객체를 이동
+                }
+            }, 1000 / 60); // 600FPS로 실행
+        }
+    </script>
+</body>
+
+</html>

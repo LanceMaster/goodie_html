@@ -19,15 +19,25 @@
     <script>
         textcontainer = document.querySelector("#text-container");
 
-        function test12() {
-            setInterval(() => {
-                let length = document.querySelector(".input-data").value.length;
-                textcontainer.innerHTML = "글자수 : " + length;
-                textcontainer.innerHTML += "<br>"
-                textcontainer.innerHTML += document.querySelector(".input-data").value;
+        // function test12() {
+        //     setInterval(() => {
+        //         let length = document.querySelector(".input-data").value.length;
+        //         textcontainer.innerHTML = "글자수 : " + length;
+        //         textcontainer.innerHTML += "<br>"
+        //         textcontainer.innerHTML += document.querySelector(".input-data").value;
 
-                // console.log(length);
-            }, 500);
+        //         // console.log(length);
+        //     }, 500);
+        // }
+
+        function test12() {
+            const inputEl = event.target;
+
+            document.getElementById("text-container").innerHTML = "글자 : " + inputEl.value + "<br>글자수 : " + inputEl.value.length;
+
+            console.log(inputEl.value);
+            console.log(inputEl.value.length);
+
         }
 
     </script>

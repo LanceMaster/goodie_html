@@ -62,7 +62,7 @@
             { no: 1, title: "첫번째", writer: "유저1", enrolldate: "2025-03-27" },
             { no: 2, title: "두번째", writer: "유저2", enrolldate: "2025-03-27" },
             { no: 3, title: "세번째", writer: "유저3", enrolldate: "2025-03-27" },
-            { no: 4, title: "네번째", writer: "유저4", enrolldate: "2025-03-27" }
+            { no: 4, title: "네번째", writer: "유저4", enrolldate: new Date() }
         ];
 
         // 1. 출력하기 버튼 클릭 시 실행
@@ -88,6 +88,7 @@
 
             // 테이블 바디 생성
             const tbody = document.createElement("tbody");
+            //만든 arr은 배열객체이다.
             arr.forEach(item => {
                 // console.log(item);
                 const row = document.createElement("tr");
@@ -112,6 +113,8 @@
             const title = document.getElementById("boardTitle").value;
             const writer = document.getElementById("boardWriter").value;
             const enrolldate = document.getElementById("boardDate").value;
+
+            console.log
 
             // 입력값 검증
             if (!no || !title || !writer || !enrolldate) {

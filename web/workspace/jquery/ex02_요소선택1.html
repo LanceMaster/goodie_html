@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='resource/jquery_3.7.1.js'></script>
+</head>
+<>
+    <h1>선택자를 이용한 요소 선택</h1>
+    <h3>* 아이디 선택자</h3>
+    <p>고유한 아이디값을 가진 요소 "하나만" 선택하고자 할때</p>
+
+
+    <h1 id="id1">테스트1</h1>
+    <h1 id="id1">테스트1</h1>
+
+    <h1 id="id2">테스트2</h1>
+    <h1 id="id2">테스트2</h1>
+
+
+    <span id = "p-jquery">
+        <p>사과</p>
+        <p>바나나</p>
+        <p>옹애</p>
+    </span>
+
+
+    <h3>클래스 선택자</h3>
+
+    <h1 class="item">Class1</h1>
+
+    <h1 class="item select">Class2</h1>
+
+    <h1 class="item select">Class3</h1>
+
+
+    <style>
+        .textcolor-red {
+            color: red;
+        }
+    </style>
+
+
+    <script>
+
+        $(() => {
+            // document.getElementById("id1").style.color = "red";
+
+            document.querySelector("#id1").className = "textcolor-red";
+            document.querySelector("#id1").textContent = "h1변경"
+
+
+
+            $("#id2").css("color", "blue");
+            $("#id2").html("변경");
+
+            console.log($("#id2").text());
+
+            //선택자의 구분 id는 # class는 .
+            $("#p-jquery p").on("click",(e)=> {
+                // window.alert("누름");
+                console.log($(e.target).text());
+                $(e.target).html("클릭됨");
+            })
+
+            const item = $(".item");
+            console.log(item.length);
+
+            for(let i = 0; i < item.length; i ++) {
+                $(item[i]).html("변경함");
+                //무조건 jqeury의 요소는 $가 필요함
+                //그냥 items[i]로 하면 javascript DOM요소로 보기때문
+            }
+
+            // $(".item").text("변경함")
+
+
+
+        })
+
+    </script>
+    </body>
+
+</html>

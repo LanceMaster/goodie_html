@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* General body styling */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        /* Styling for the area box */
+        .area {
+            width: 500px;
+            height: 500px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px auto;
+            overflow-y: auto;
+        }
+
+        /* Styling for the counter (clock) */
+        #counter {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f4f4f4;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Highlight for seconds over 50 */
+        .over50second {
+            color: #007BFF;
+            font-weight: bold;
+        }
+
+        /* Styling for the page title */
+        h1 {
+            text-align: center;
+            color: #444;
+            margin-top: 20px;
+        }
+
+        /* Styling for the clock spans */
+        #counter span {
+            display: inline-block;
+            margin: 0 5px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            background-color: #e9ecef;
+        }
+
+        /* Responsive design for smaller screens */
+        @media (max-width: 600px) {
+            .area {
+                width: 90%;
+                height: auto;
+            }
+
+            #counter {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="box1" class="area"></div>
+    <script>
+        let box1 = document.querySelector("#box1");
+        let now = new Date();
+        box1.innerHTML += now + "<br>";
+        let data1 = new Date(2025,(3-1),20,15,20,0) //2025-03-20 15:20
+        box1.innerHTML += data1+ "<br>";
+        let data2 = new Date(2025,(3-1),20) //2025-03-20 00:00:00
+        box1.innerHTML += data2+ "<br>";
+        let data3 = new Date("2025-03-20 15:30:00") //2025-03-20 15:30:00
+        box1.innerHTML += data3+ "<br>";
+        //2025,2,20,4,15,33,32
+        //로컬타임기준
+        let year = now.getFullYear(); //년도 : 2025
+        let month = now.getMonth();   //월 : 3월:2 (0 ~ 11)
+        let day = now.getDate();      //일
+        let weekNo = now.getDay();    //요일 : 일(0),월(1),화(2)...토(6)
+        let hour = now.getHours();    //시
+        let minute = now.getMinutes(); //분
+        let second = now.getSeconds(); //초
+        box1.innerHTML += 
+        `${year},${month},${day},${weekNo},${hour},${minute},${second}<br>`;
+        //UTC 타임기준
+        year = now.getUTCFullYear(); //년도 : 2025
+        month = now.getUTCMonth();   //월 : 3월:2 (0 ~ 11)
+        day = now.getUTCDate();      //일
+        weekNo = now.getUTCDay();    //요일 : 일(0),월(1),화(2)...토(6)
+        hour = now.getUTCHours();    //시
+        minute = now.getUTCMinutes(); //분
+        second = now.getUTCSeconds(); //초
+        box1.innerHTML += 
+        `${year},${month},${day},${weekNo},${hour},${minute},${second}<br>`;
+        //오늘의 요일 출력하기
+        let arr = ['일','월','화','수','목','금','토']
+        let weekname = arr[now.getDay()];
+        box1.innerHTML += `2025-03-30 ${weekname}요일`
+    </script>
+
+    <!-- 시계 구현하기 -->
+
+    <h1 id="counter">
+
+        <span id="year"></span>년
+        <span id="month"></span>월
+        <span id="day"></span>일
+        <span id="hour"></span>시
+        <span id="minute"></span>분
+        <span id="second"></span>초
+        <span id="milisecond"></span>밀리초 입니다.
+    </h1>
+
+    <script>
+        function fnFillZero(n) {
+            return n < 10 ? "0" + n : n;
+        } 
+        //10보다 작으면 앞에 0을 붙여주는 함수
+
+        setInterval(function(){
+            let now = new Date();
+            // 1초에 한번씩 현재 시간을 가져와서 각 요소에 텍스트를 업데이트
+            
+            document.querySelector("#year").textContent = now.getFullYear();
+            document.querySelector("#month").textContent = fnFillZero(now.getMonth()+1);
+            document.querySelector("#day").textContent = fnFillZero(now.getDate());
+            document.querySelector("#hour").textContent = fnFillZero(now.getHours());
+            document.querySelector("#minute").textContent = fnFillZero(now.getMinutes());
+            document.querySelector("#second").textContent = fnFillZero(now.getSeconds());
+            document.querySelector("#milisecond").textContent = now.getMilliseconds();
+
+            if (now.getSeconds() >= 10) {
+                document.querySelector("#counter").setAttribute("class", "over50second");
+                // document.querySelector("#counter").className = "over50second";
+                // className : 클래스 속성의 이름 설정
+                // document.querySelector("#counter").setAttribute("class", "over50second")는
+                // counter라는 id를 가진 요소에 class 속성을 over50second로 설정하는 것
+                // 둘이 똑같은 거임 
+            } else {
+                document.querySelector("#counter").removeAttribute("class");
+                // removeAttribute("class") : class 속성을 제거하는 것
+                // document.querySelector("#counter").className = "";
+                // className = "" : 클래스 속성을 제거하는 것
+                // 둘이 똑같은 거임 
+            }
+        }, 1);
+        // setInterval을 사용하여 시계를 1초마다 업데이트하는 코드
+        // 현재 시간을 가져와서 각 요소에 텍스트를 업데이트
+        // fnFillZero 함수는 10보다 작은 숫자 앞에 0을 붙여주는 역할
+        // SetInterval(함수,밀리초) : 밀리초마다 함수 실행 
+    </script>
+</body>
+</html>

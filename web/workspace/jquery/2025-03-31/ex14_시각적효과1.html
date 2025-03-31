@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="../resource//jquery_3.7.1.js"></script>
+  </head>
+  <body>
+    <button id="show">보여주기</button>
+    <button id="toggle">토글</button>
+    <button id="hide">숨기게하기</button>
+    <br /><br />
+    <div
+      id="area"
+      style="background-color: red; width: 100px; height: 100px"
+    ></div>
+
+    <script>
+      $(() => {
+        /*
+        hide(mm) , show(mm) : mm초동안 안보이게 , mm초동안 보이게
+        */
+        $("#hide").click(() => {
+          $("#area").hide(2000);
+        });
+
+        $("#show").click(() => {
+          $("#area").show(3000);
+        });
+
+        $("#toggle").click(() => {
+          $("#area").toggle(1000); //안보이면 보이게 보이면 안보이게
+        });
+      });
+    </script>
+  </body>
+</html>

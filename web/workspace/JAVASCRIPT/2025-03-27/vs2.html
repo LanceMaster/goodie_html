@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Player Movement</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+
+      canvas {
+        display: block;
+        background: black;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="gameCanvas"></canvas>
+    <div
+      id="timer"
+      style="
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+      "
+    >
+      30
+    </div>
+    <button
+      id="startButton"
+      style="
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 10px 20px;
+        font-size: 20px;
+        cursor: pointer;
+      "
+    >
+      게임 시작
+    </button>
+
+    <script>
+      const canvas = document.getElementById("gameCanvas");
+      const ctx = canvas.getContext("2d");
+
+      let timeLeft = 30; // 60초
+      const timerElement = document.getElementById("timer");
+
+      // 게임 구역 잡기
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      //boss스폰여부 (버림)
+      // let bossSpawned = false;
+
+      // 플레이어 정보
+      const player = {
+        x: canvas.width / 2, // player 초기 위치 설정
+        y: canvas.height / 2, // player 초기 위치 설정
+        size: 30,
+        color: "white",
+        speed: 5,
+      };
+
+      const keys = {}; // 키 입력 상태 저장
+      const enemies = []; // 적 배열
+      const bullets = []; // 총알 배열
+
+      // 키 입력 이벤트
+      window.addEventListener("keydown", (e) => {
+        keys[e.key] = true;
+      });
+
+      window.addEventListener("keyup", (e) => {
+        keys[e.key] = false;
+      });
+
+      // 플레이어 이동
+      function move() {
+        if (keys["ArrowUp"] && player.y > 0) player.y -= player.speed;
+        if (keys["ArrowRight"] && player.x < canvas.width - player.size)
+          player.x += player.speed;
+        if (keys["ArrowDown"] && player.y < canvas.height - player.size)
+          player.y += player.speed;
+        if (keys["ArrowLeft"] && player.x > 0) player.x -= player.speed;
+      }
+
+      // 적 생성
+      function spawnEnemy() {
+        const directions = [
+          { x: 0, y: -1 }, // 위
+          { x: 1, y: -1 }, // 오른쪽 위
+          { x: 1, y: 0 }, // 오른쪽
+          { x: 1, y: 1 }, // 오른쪽 아래
+          { x: 0, y: 1 }, // 아래
+          { x: -1, y: 1 }, // 왼쪽 아래
+          { x: -1, y: 0 }, // 왼쪽
+          { x: -1, y: -1 }, // 왼쪽 위
+        ];
+
+        const randomDirection =
+          directions[Math.floor(Math.random() * directions.length)];
+
+        const enemy = {
+          x:
+            randomDirection.x === 0
+              ? Math.random() * canvas.width
+              : randomDirection.x > 0
+              ? canvas.width
+              : 0,
+          y:
+            randomDirection.y === 0
+              ? Math.random() * canvas.height
+              : randomDirection.y > 0
+              ? canvas.height
+              : 0,
+          size: 20,
+          color: "red",
+          speed: 2,
+        };
+
+        enemies.push(enemy);
+      }
+
+      // 적 이동
+      function moveEnemies() {
+        enemies.forEach((enemy, index) => {
+          const dx = player.x - enemy.x;
+          const dy = player.y - enemy.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          enemy.x += (dx / distance) * enemy.speed;
+          enemy.y += (dy / distance) * enemy.speed;
+
+          // 플레이어와 충돌 체크
+          if (
+            enemy.x < player.x + player.size &&
+            enemy.x + enemy.size > player.x &&
+            enemy.y < player.y + player.size &&
+            enemy.y + enemy.size > player.y
+          ) {
+            alert("패배! 적에게 잡혔습니다.");
+            location.reload();
+          }
+        });
+      }
+
+      // 적 그리기
+      function drawEnemies() {
+        enemies.forEach((enemy) => {
+          ctx.fillStyle = enemy.color;
+          ctx.fillRect(enemy.x, enemy.y, enemy.size, enemy.size);
+        });
+      }
+
+      // 총알 생성
+      function spawnBullets() {
+        const directions = [
+          { x: 0, y: -1 }, // 위
+          { x: 1, y: -1 }, // 오른쪽 위
+          { x: 1, y: 0 }, // 오른쪽
+          { x: 1, y: 1 }, // 오른쪽 아래
+          { x: 0, y: 1 }, // 아래
+          { x: -1, y: 1 }, // 왼쪽 아래
+          { x: -1, y: 0 }, // 왼쪽
+          { x: -1, y: -1 }, // 왼쪽 위
+        ];
+
+        directions.forEach((direction) => {
+          const bullet = {
+            x: player.x + player.size / 2, // 플레이어 중심에서 발사
+            y: player.y + player.size / 2,
+            size: 10,
+            color: "yellow",
+            speed: 5,
+            dx: direction.x,
+            dy: direction.y,
+          };
+          bullets.push(bullet);
+        });
+      }
+
+      // 총알 이동
+      function moveBullets() {
+        bullets.forEach((bullet, index) => {
+          bullet.x += bullet.dx * bullet.speed;
+          bullet.y += bullet.dy * bullet.speed;
+
+          // 화면 밖으로 나간 총알 제거
+          if (
+            bullet.x < 0 ||
+            bullet.x > canvas.width ||
+            bullet.y < 0 ||
+            bullet.y > canvas.height
+          ) {
+            bullets.splice(index, 1); // 총알 제거
+          }
+        });
+      }
+
+      // 총알과 적 충돌 체크
+      function checkBulletCollision() {
+        bullets.forEach((bullet, bulletIndex) => {
+          enemies.forEach((enemy, enemyIndex) => {
+            if (
+              bullet.x < enemy.x + enemy.size &&
+              bullet.x + bullet.size > enemy.x &&
+              bullet.y < enemy.y + enemy.size &&
+              bullet.y + bullet.size > enemy.y
+            ) {
+              // 충돌 발생 시
+              // bullets.splice(bulletIndex, 1); // 총알 제거
+
+              // 일반 적일 경우 제거
+              enemies.splice(enemyIndex, 1);
+            }
+          });
+        });
+      }
+
+      // 총알 그리기
+      function drawBullets() {
+        bullets.forEach((bullet) => {
+          ctx.fillStyle = bullet.color;
+          ctx.fillRect(bullet.x, bullet.y, bullet.size, bullet.size);
+        });
+      }
+
+      function startTimer() {
+        const timerInterval = setInterval(() => {
+          timeLeft--;
+          timerElement.textContent = timeLeft;
+
+          if (timeLeft <= 0) {
+            clearInterval(timerInterval); // 타이머 정지
+            alert("승리!"); // 승리 메시지
+            location.reload();
+          }
+        }, 1000); // 1초마다 실행
+      }
+
+      function game() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // 플레이어 그리기
+        ctx.fillStyle = player.color;
+        ctx.fillRect(player.x, player.y, player.size, player.size);
+
+        move();
+        moveEnemies(); // 적 이동
+        moveBullets(); // 총알 이동
+        checkBulletCollision(); // 총알과 적 충돌 체크
+        drawEnemies(); // 적 그리기
+        drawBullets(); // 총알 그리기
+
+        requestAnimationFrame(game);
+      }
+
+      startButton.addEventListener("click", () => {
+        startButton.style.display = "none"; // 버튼 숨기기
+        game(); // 게임 루프 시작
+        startTimer(); // 타이머 시작
+        setInterval(spawnEnemy, 150); // 1초마다 적 생성
+        setInterval(spawnBullets, 500); // 1초마다 총알 생성
+      });
+    </script>
+  </body>
+</html>

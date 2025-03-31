@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
+    <script src="../resource/jquery_3.7.1.js"></script>
+  </head>
+  <body>
+    <style>
+      .item {
+        background: yellowgreen;
+        width: 100px;
+        height: 100px;
+        text-align: center;
+        line-height: 100px;
+        margin: 10px;
+        font-size: 25px;
+        color: white;
+        font-weight: bold;
+      }
+      .purple {
+        background: purple;
+      }
+    </style>
+
+    <h1>요소의 생성</h1>
+    <h3>동적 요소의 생성</h3>
+    <input type="button" value="요소생성" id="btn" />
+    <div id="area1"></div>
+    <h1 id="test1"><span>A</span></h1>
+    <h1 id="test2"><span>A</span></h1>
+    <h1 id="test3"><span>A</span></h1>
+    <h1 id="test4"><span id="test-span">A</span></h1>
+
+    <h3>삽입 관련 메소드</h3>
+    <script>
+      $("#btn").on("click", () => {
+        console.log("click");
+        // 1. 문자열 생성
+        let el1 = "<p> Create Element by String </p>";
+        // 2. dom 함수를 이용하기 (tag를 만들고 textnode에 text 추가하기)
+        let el2 = document.createElement("p");
+        let text = document.createTextNode("Create Elemenet By Dom");
+        //el2 태그에 text 추가하기
+        el2.appendChild(text);
+        //id area1에 append 추가
+        // JQUERY (p태그 안에 .text를 추가한다고 생각하면 될듯 )
+        let el3 = $("<p></p>").text("CREATE ELEMENT BY JQUERY");
+        $("#area1").append(el1, el2, el3);
+        // console.log(`${el1} // ${el2} // ${el3}`);a
+        // console.log( el1 + " / "  +el2 + " / "  +el3);
+        console.log(el2);
+      });
+    </script>
+
+    <script>
+      // $("#test1").append("<span>B</span>"); //뒤에 추가
+      // $("#test2").prepend("<span>B</span>"); //앞에 추가
+      // $("#test3").before("<span>B</span>"); //A 요소 앞부분에 추가
+      // $("#test4").after("<span>B</span>"); //A요소 뒷부분에 추가
+      // $("#test-span").after("<span>test</span>");
+      $("<span>C</span>").appendTo("#test1"); //이것도 뒤에 추가임
+      $("<span>C</span>").prependTo("#test2"); //이것도 앞에 추가임
+      $("<span>C</span>").insertAfter("#test3");
+      $("<span>C</span>").insertBefore("#test4");
+    </script>
+    <hr />
+    <h3>요소 복제 메소드</h3>
+    <div id="clone-test">
+      <div id="item1" class="item"><span>HI</span></div>
+    </div>
+    <button id="clone">복제</button>
+    <div id="clone-result"></div>
+    <script>
+      $(() => {
+        $("#item1").hover(
+          (e) => {
+            console.log("hover");
+            $(e.target).addClass("purple");
+          },
+          (e) => {
+            $(e.target).removeClass("purple");
+          }
+        );
+
+        $("#clone").on("click", () => {
+          //요소와 이벤트를 복제한다. clone함수 appendTo 해당 요소에 넣음
+          $("#item1").clone(true).appendTo($("#clone-result"));
+        });
+      });
+    </script>
+
+    <hr />
+    <h1>요소 제거</h1>
+    <h3>요소 객체 제거 및 잘라내기 메소드</h3>
+    <div id="remove-test">
+      <div id="item2" class="item"><span>안녕</span></div>
+      <h1>하이요</h1>
+    </div>
+    <input type="button" value="비우기" id="empty" />
+    <input type="button" value="제거하기" id="delete" />
+    <input type="button" value="잘라내기" id="detach" />
+    <div id="remove-result"></div>
+
+    <script>
+      $(() => {
+        $("#empty").on("click", () => {
+          $("#remove-test").empty();
+        });
+        $("#delete").on("click", () => {
+          const removeEl = $("#item2").remove();
+          $("#remove-result").append(removeEl);
+        });
+      });
+    </script>
+  </body>
+</html>

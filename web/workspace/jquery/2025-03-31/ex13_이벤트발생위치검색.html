@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
+    <script src="../resource/jquery_3.7.1.js"></script>
+  </head>
+  <style>
+    table {
+      border-spacing: 0px;
+      border-collapse: collapse;
+    }
+
+    .hover {
+      background-color: green;
+      color: yellow;
+    }
+    .reverse {
+      background-color: black;
+      color: white;
+    }
+  </style>
+  <body>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>이름</th>
+          <th>혈액형</th>
+          <th>지역</th>
+          <th>성별</th>
+          <th>전화</th>
+        </tr>
+      </thead>
+      <tr>
+        <td>김준희</td>
+        <td>A</td>
+        <td>SUWON</td>
+        <td>MALE</td>
+        <td>010-3171-2890</td>
+      </tr>
+      <tr>
+        <td>김준희</td>
+        <td>A</td>
+        <td>SUWON</td>
+        <td>MALE</td>
+        <td>010-3171-2890</td>
+      </tr>
+    </table>
+
+    <script>
+      $(() => {
+        // $("th").on("hover",(e)=> {
+        //     console.log("hover");
+        //     $(e.target).addClass("hover");
+        // })
+
+        $("table th").hover(
+          (e) => {
+            console.log("hover");
+            console.log(
+              $(e.target).parent().children().index(e.target) + 1,
+              "위치"
+            );
+            // th 태그들 중 this의 위치 인덱스값 리턴1
+            select = $(e.target).parent().children().index(e.target) + 1;
+            // $(e.target).parent().children().index(e.target)+1
+            // 해당것이 hover한 index를 return한다.
+            console.log(select);
+            $(e.target).addClass("hover"); //header에 th에 적용
+            $("td:nth-child(" + select + ")").addClass("hover"); //th index에 맞는 td를 hover 다 적용함
+          },
+          (e) => {
+            // $(e.target).remove("hover")
+            $(e.target).removeClass("hover");
+            $("td:nth-child(" + select + ")").removeClass("hover");
+          }
+        );
+      });
+    </script>
+  </body>
+</html>

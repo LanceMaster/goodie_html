@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='../resource/jquery_3.7.1.js'></script>
+</head>
+<body>
+
+    <div style="border: 1px solid black;">
+        <h2>test</h2>
+        <p>Paragraph 1</p>
+        <p>Paragraph 2</p>
+        <span>Span Element</span>
+    </div>
+
+    <div style="border: 1px solid black;">
+        <h2>Another test</h2>
+        <p>Another Paragraph</p>
+    </div>
+
+    <script>
+        $(() => {
+            const style = { color: "red", border: "2px solid red"
+            };
+            const style2 = { color: "pink", border: "2px solid yellow"
+            };
+             
+
+            // siblings() 선택된 요소의 같은 레벨 모든 요소를 스타일링
+            $("h2").siblings().css(style);
+            $("h2").siblings("p").css(style);
+
+            /*
+            next() : 선택자의 바로 다음 요소 한 개
+            nextAll() : 선택자의 바로 다음 요소 모두
+            prev() : 선택자의 바로 이전 요소 한 개
+            */
+            $("h2").next().css(style);
+            $("h2").nextAll().css(style2);
+            $("h2").nextUntil("p").css("font-size", "3em");
+            $("h2").prev().css("backgroundColor", "pink");
+            $("h2").prevAll().css(style4);
+            $("h2").prevUntil("p").css("border-style", "dotted");
+
+        });
+    </script>
+</body>
+</html>

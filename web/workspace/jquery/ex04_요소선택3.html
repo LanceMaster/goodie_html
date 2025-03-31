@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='resource/jquery_3.7.1.js'></script>
+</head>
+
+<body>
+    <hr style="border: 1px solid black;">
+    <h3> * 상태 (checked , selected , enabled , disabled) 선택자</h3>
+    <h4> - checked 상태 선택자 (radio , checkbox)</h4>
+    취미 :
+    <input type="checkbox" name="hobby" value="game">
+    <label>게임</label>
+    <input type="checkbox" name="hobby" value="movie">
+    <label>영화</label>
+    <input type="checkbox" name="hobby" value="music">
+    <label>음악</label>
+    <br>
+    <button id="btn" type="button">실행확인</button>
+
+
+
+</body>
+<style>
+    .selected {
+        width: 30px;
+        height: 30px;
+    }
+
+    .unchecked {
+        width: 10px;
+        height: 10px;
+    }
+</style>
+
+<script>
+    $("#btn").on("click", () => {
+        console.log("check");
+        // 체크된 input 요소 선택
+        // $("input:checked").css({ width: "30px", height: "30px" });
+
+    });
+
+
+
+
+    // javascript의 onchange와 동일하다. 
+    // 값이 변경될 경우 이벤츠 처리가 된다 .
+
+    $(":checkbox").change((e) => {
+        if ($(e.target).prop("checked")) {
+            $(e.target).addClass("selected");
+            //em : 상대 단위 기존의 font-size의 2배
+            $(e.target).next().css("font-size", "2em");
+            console.log(($(e.target).val()));
+        } else {
+            $(e.target).removeClass("selected");
+            $(e.target).next().css("font-size", "");
+
+        }
+    });
+</script>
+
+<hr style="border: 1px solid black;">
+<h4> selected 상태 선택자 (select > option)</h4>
+
+국적 :
+<select name="national">
+    <option value="x">선택안함</option>
+    <option value="ko">한국</option>
+    <option value="us">미국</option>
+    <option value="eu">영국</option>
+</select>
+<button type="button" onclick="test()">확인</button>
+<br>
+선택한 나라 : <span id="result">선택안함</span>
+
+<script>
+
+    function test() {
+
+        let selectedValue = $("select[name='national'] option:selected").val();
+        console.log(selectedValue);
+
+        //html 태그안의 text 값을 갖고옴옴
+        $("#result").html($("option:selected").html()
+            //html 태그안의 value값을 갖고옴 
+            + "," + $("option:selected").val());
+    }
+
+</script>
+
+<hr style="border: 1px solid black;">
+<h4>disabled , enabled 상태 선택자 </h4>
+<button type="button" style="margin: 3px; padding: 3px;">활성화 버튼</button>
+<button type="button" disabled>비활성화 버튼</button>
+
+<!-- 
+jquery에서 $("html태그:태그의 상태") => 중요한듯★★★
+-->
+<script>
+    $("button:enabled").css({ backgroundColor: "red", color: "white" });
+    $("button:disabled").css({ backgroundColor: "blue", color: "white" });
+</script>
+
+</body>
+
+</html>

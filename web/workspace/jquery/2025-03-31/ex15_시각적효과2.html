@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
+    <script src="../resource/jquery_3.7.1.js"></script>
+  </head>
+  <>
+    <h3>fade in fade out fade toggle</h3>
+    <button id="show">보여주기</button>
+    <button id="toggle">토글</button>
+    <button id="hide">숨기게하기</button>
+    <br /><br />
+    <div
+      id="area"
+      style="background-color: red; width: 100px; height: 100px"
+    ></div>
+    <img id="test-img" src="../../JAVASCRIPT/resource/apple.gif" />
+    <script>
+      $(() => {
+        $("#hide").on("click", () => {
+          console.log("클릭함");
+          $("#test-img").fadeOut(3000);
+        });
+      });
+    </script>
+
+    <hr style="border: 1PX solid black;">
+    
+    <div>ㅇㅇ?</div>
+    <p>ㅇㅇ</p>
+    <div>ㅇㅇ????</div>
+    <p>ㅇㅇ</p>
+    <div>ㅇㅇ???????</div>
+    <p>ㅇㅇ</p>
+    <div>ㅇㅇ??????????????</div>
+    <p>ㅇㅇ</p>
+    <div>ㅇㅇ?????????????????</div>
+    <p>ㅇㅇ</p>
+
+    <script>
+        $(()=> {
+            $("div").click((e)=> {
+                //해당거의 다음태그 p태그가 되겠다.
+                //$p : jQuery방식 객체. 변수명앞에 $를 표시하는경우가 많다.
+                //클릭할시 기존거 전부 끄고 클릭한거만 키기 
+                
+
+                const $p = $(e.target).next();
+                if($p.css("display") == 'none') {//안보일떄
+                    //기존의 p태그들 안보이게 하기
+                    $(e.target).siblings("p").slideUp();
+                    // $p태그만 보이게하기 slidedown
+                    $p.slideDown();
+                } else{
+                    $p.slideUp();
+                }
+            })
+        })
+    </script>
+  </body>
+</html>

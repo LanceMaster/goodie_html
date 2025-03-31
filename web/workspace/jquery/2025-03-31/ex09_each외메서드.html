@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
+    <script src="../resource/jquery_3.7.1.js"></script>
+    <style>
+      .highlight-0 {
+        background-color: red;
+      }
+      .highlight-1 {
+        background-color: orange;
+      }
+      .highlight-2 {
+        background-color: yellow;
+      }
+      .highlight-3 {
+        background-color: green;
+      }
+      .highlight-4 {
+        background-color: blue;
+      }
+    </style>
+  </head>
+
+  <body>
+    <each>each 메소드</each>
+    <p>배열으 모든 인덱스 순차적 접근 사용 for in , for each 구분과 비슷</p>
+
+    <script>
+      $(() => {
+        const arr = ["동", "서", "남", "북"];
+        // 1. for in
+        // for (let i in arr) {
+        //   console.log(i, typeof i);
+        //   console.log(arr[i]);
+        // }
+
+        arr.forEach((element) => {
+          // console.log(element);
+        });
+
+        //jquery index와 value 다 알수있는듯
+
+        $.each(arr, (index, value) => {
+          // console.log(index, typeof index);
+          // console.log(value);
+        });
+
+        // 순수 자바스크립트 방식의 배열객체 ARR을 JQUERY 객체로 변경해야 each 가능함
+
+        const student = [{ name: "ㅋ", age: 20, address: "seoul" }];
+
+        // for (let key in student) {
+        //   console.log(key);
+        //   console.log(student[key]);
+        // }
+
+        // //2 each
+
+        // $.each(student, (key, value) => {
+        //   console.log(key);
+        //   console.log(value);
+        // });
+
+        //2. each 다른거 ㅇㅇ
+        $(student).each((element, value) => {
+          console.log(element, typeof element);
+          console.log(student[element]);
+        });
+
+        $(student).each(function (element, value) {
+          console.log(element, typeof element);
+          console.log(student[element]);
+        });
+      });
+    </script>
+
+    <button type="button" id="btn">학생조회</button>
+    <br />
+    <table id="result1" border="1px solid black">
+      <thead>
+        <tr>
+          <th>이름</th>
+          <th>나이</th>
+          <th>주소</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="3" style="text-align: center">
+            현재 학생정보가 없습니다.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <script>
+      $(() => {
+        $("#btn").on("click", () => {
+          const students = [{ name: "ㅋ", age: 20, address: "suwon" }];
+
+          let result = "";
+          $.each(students, (index, stu) => {
+            // console.log(index);
+            result +=
+              `<tr><td>${stu.name}</td>` +
+              `<td>${stu.age}</td>` +
+              `<td>${stu.address}</td></tr>`;
+          });
+          $("#result1 tbody").html(result);
+        });
+      });
+    </script>
+
+    <div id="area2">
+      <h1>item-1</h1>
+      <h1>item-2</h1>
+      <h1>item-3</h1>
+      <h1>item-4</h1>
+      <h1>item-5</h1>
+    </div>
+    <script>
+      $(function () {
+        $("#area2")
+          .children()
+          .each((index, el) => {
+            console.log(index);
+            console.log(el);
+            console.log($(el));
+          });
+
+        //each에 무조건 하나가있으면 index 2번째가 element가 나온다.
+        //아무것도 없으면 this로 가능하다. this는 현재 순차적으로 접근하고있는 객체
+        $.each($("#area2").children(), function (index) {
+          // $(this).addClass("highlight-" + index);
+          this.className = "highlight-" + index;
+          //addclass는 jquery의 메서드 javascript 객체 사용 불가
+          // this.addclass("highlight-"+index) //안됨
+          // $(this).className = "hightlght-"+index;
+        });
+      });
+    </script>
+
+    <h3>is 메서드</h3>
+    <p>
+      $("선택자1").is("선택자2")<br />
+      선택자1로 선택된 요소가 선택자2 와 일치 여부 당연히 boolean값으로 리턴
+      true / false
+    </p>
+
+    <h3 class="test">test1</h3>
+    <h3 class="test">test2</h3>
+
+    <script>
+      $(() => {
+        // $("h3").each(function(){
+        //   // console.log(e);
+        //   if($(this).is(".test")) {
+        //     $(this).css("backgroundColor","orange");
+        //   }
+        // })
+
+        $("h3").each((index, element) => {
+          console.log(index);
+          console.log($(element));
+          if ($(element).is(".test")) {
+            $(element).css("backgroundColor", "orange");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

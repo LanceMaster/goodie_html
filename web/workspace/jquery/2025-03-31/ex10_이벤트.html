@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="../resource/jquery_3.7.1.js"></script>
+  </head>
+  <body>
+    <h3>on 메소드 이용</h3>
+    <h4 id="test2">마우스 클릭 및 올려보세요</h4>
+    <div id="result"></div>
+    <script>
+      $("#test2").on({
+        click: (e) => {
+          // 클릭 이벤트
+          //   $("#result").html(e.target.textContent);
+          console.log("클릭함");
+          $(e.target).off("mouseenter");
+          $(e.target).off("mouseover");
+          $(e.target).css("backgroundColor", "white");
+        },
+        mouseover: (e) => {
+          // 마우스 오버 이벤트
+          $(e.target).css({ backgroundColor: "red" }).text("응 바뀜");
+        },
+        mouseout: (e) => {
+          // 마우스 아웃 이벤트
+          $(e.target).css({ backgroundColor: "blue" }).text("응 나감");
+        },
+        mouseenter: () => {
+          // 마우스 엔터 이벤트
+          //   window.alert("들어옴");
+        },
+        mouseleave: () => {
+          // 마우스 리브 이벤트
+          //   console.log("나감");
+        },
+      });
+    </script>
+    <div id="wrap">
+      <h4>클릭해보셈</h4>
+      <h5>응 넌 클릭못함</h5>
+    </div>
+    <h5>바깥쪽 h5임</h5>
+    <script>
+      $(() => {
+        $("#wrap").on("click", "h4,h5", (e) => {
+          $(e.target).html("안녕");
+        });
+
+        $(document).on("click", "h5", (e) => {
+          $(e.target).css("color", "pink");
+        });
+      });
+    </script>
+    <hr />
+    <h3>동적으로 생성된 요소에 이벤트 적용</h3>
+    <div id="area2" style="border: 1px solid red">
+      <h6>문서에 존재하는 h6요소</h6>
+    </div>
+    <script>
+      $(() => {
+        $("#area2 h6").on("click", () => {
+          $("#area2").append("클릭해서 만들어짐<br>");
+        });
+      });
+    </script>
+
+    <hr />
+    <h3>일회성 이벤트 등록</h3>
+    <h6 id="test3">딱 한번만 실행</h6>
+    <script>
+      $("#test3").one("click", () => {
+        console.log("one");
+      });
+    </script>
+  </body>
+</html>
+
+
+<!-- 1. jquery 부모.on("어떤거",(){}) / one() 으로 일회성 / off()로 이벤트 제거  -->
